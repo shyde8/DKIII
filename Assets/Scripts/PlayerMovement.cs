@@ -38,9 +38,11 @@ public class PlayerMovement : MonoBehaviour
 	void Update ()
     {
         //horizontal movement
-        float deltaX = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+		//only apply movement if either left or right arrow are down, to avoid "floaty" behavior
+		float deltaX = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
         Vector2 movement = new Vector2(deltaX, _body.velocity.y);
-        _body.velocity = movement;
+		if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+        	_body.velocity = movement;
 
         //check-if grounded
         Vector3 max = _box.bounds.max;
@@ -63,7 +65,14 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //animator code
-        _anim.SetFloat("speed", Mathf.Abs(deltaX));
+		if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+		{
+			_anim.SetBool("isHorKeyDown", true);
+		}
+		else 
+		{
+			_anim.SetBool("isHorKeyDown", false);
+		}
         if (!Mathf.Approximately(deltaX, 0))
             transform.localScale = new Vector3(Mathf.Sign(deltaX) * _scaleX, _scaleY, _scaleZ);
 

@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: b7ba247c1b130a1448deb3fdc46a834e
+guid: 93a993ab637cefd49956d3f05f96c9d8
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Arcade - Donkey Kong - 75 M100 M_0
-    21300002: Arcade - Donkey Kong - 75 M100 M_1
-    21300004: Arcade - Donkey Kong - 75 M100 M_2
-    21300006: Arcade - Donkey Kong - 75 M100 M_3
-    21300008: Arcade - Donkey Kong - 75 M100 M_4
+    21300000: LevelTiles_0
+    21300002: LevelTiles_1
+    21300004: LevelTiles_2
+    21300006: LevelTiles_3
+    21300008: LevelTiles_4
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -89,85 +89,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Arcade - Donkey Kong - 75 M100 M_0
+      name: LevelTiles_0
       rect:
         serializedVersion: 2
-        x: 64
-        y: 424
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 4, y: -8}
-        - {x: 4, y: -8}
-        - {x: 1, y: -8}
-        - {x: 1, y: -7}
-        - {x: 2, y: -7}
-        - {x: 2, y: -6}
-        - {x: 1, y: -6}
-        - {x: 1, y: -5}
-        - {x: 0, y: -5}
-        - {x: 0, y: -8}
-        - {x: -4, y: -8}
-        - {x: -4, y: -7}
-        - {x: -3, y: -7}
-        - {x: -3, y: -5}
-        - {x: -4, y: -5}
-        - {x: -4, y: -2}
-        - {x: -3, y: -2}
-        - {x: -3, y: 0}
-        - {x: -2, y: 0}
-        - {x: -2, y: 1}
-        - {x: -4, y: 1}
-        - {x: -4, y: 2}
-        - {x: -5, y: 2}
-        - {x: -5, y: 3}
-        - {x: -6, y: 3}
-        - {x: -6, y: 4}
-        - {x: -5, y: 4}
-        - {x: -5, y: 5}
-        - {x: -2, y: 5}
-        - {x: -2, y: 6}
-        - {x: -4, y: 6}
-        - {x: -4, y: 7}
-        - {x: -1, y: 7}
-        - {x: -1, y: 8}
-        - {x: 3, y: 8}
-        - {x: 3, y: 7}
-        - {x: 4, y: 7}
-        - {x: 4, y: 5}
-        - {x: 5, y: 5}
-        - {x: 5, y: 3}
-        - {x: 6, y: 3}
-        - {x: 6, y: 2}
-        - {x: 3, y: 2}
-        - {x: 3, y: 1}
-        - {x: 4, y: 1}
-        - {x: 4, y: 0}
-        - {x: 5, y: 0}
-        - {x: 5, y: -3}
-        - {x: 5, y: -3}
-        - {x: 5, y: -6}
-        - {x: 5, y: -6}
-        - {x: 5, y: -8}
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 70a64b249721c6f4b81bd4885051463a
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Arcade - Donkey Kong - 75 M100 M_1
-      rect:
-        serializedVersion: 2
-        x: 88
-        y: 424
-        width: 16
-        height: 16
+        x: 92
+        y: 200
+        width: 48
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -175,19 +103,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e8ba65bc3e2aa4f469eba6ab35783d06
+      spriteID: d7e9e75dd10e4384787de45015ca824e
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Arcade - Donkey Kong - 75 M100 M_2
+      name: LevelTiles_1
       rect:
         serializedVersion: 2
-        x: 112
-        y: 424
+        x: 196
+        y: 168
         width: 16
-        height: 16
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,19 +123,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a1712b2d1269a5c43802546603575438
+      spriteID: ee17c20b95f3943419b59baa757d8b22
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Arcade - Donkey Kong - 75 M100 M_3
+      name: LevelTiles_2
       rect:
         serializedVersion: 2
-        x: 376
-        y: 424
+        x: 196
+        y: 146
         width: 16
-        height: 16
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,7 +143,47 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 18788f7a30ff2bf45a29f49febd940ac
+      spriteID: 2966de0514d29a8499b1e2320915d3e8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelTiles_3
+      rect:
+        serializedVersion: 2
+        x: 476
+        y: 88
+        width: 40
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c13cc87c2d5a22645a8b3f77e15a9087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelTiles_4
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 128
+        width: 96
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbaf74eefcbd15f45b258b436ce50b94
       vertices: []
       indices: 
       edges: []
@@ -223,7 +191,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 49882a2d543def84aa446a210ff56da2
+    spriteID: 49c61acc31d21144dbbd6c2df302f0d8
     vertices: []
     indices: 
     edges: []
