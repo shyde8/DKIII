@@ -2,9 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*Current Gravity settings in-place:
+ * Projects -> Physics 2D -> Gravity Y = -40
+ * Gravity Scale = 1
+ * Speed = 150
+ * Jump Force = 5.7
+ * Fake Gravity = 27
+*/
+
 public class PlayerMovement : MonoBehaviour
 {
-    //re-push
     //gameobject components
     private Rigidbody2D _body;
     private Animator _anim;
@@ -13,14 +20,15 @@ public class PlayerMovement : MonoBehaviour
     //private variables
     private float _scaleX;
     private float _scaleY;
-    private float _scaleZ;    
+    private float _scaleZ;   
 
     //public variables
     public float speed = 250.0f;
     public float jumpForce = 12.0f;
+    public float fakeGravity = 20f;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
         //get gameobject components
         _body = GetComponent<Rigidbody2D>();
@@ -44,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
 		if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
         	_body.velocity = movement;
 
+
         //check-if grounded
         Vector3 max = _box.bounds.max;
         Vector3 min = _box.bounds.min;
@@ -62,6 +71,14 @@ public class PlayerMovement : MonoBehaviour
         {
             _body.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             grounded = false;
+        }
+
+        //decrease gravity while in the air
+        if (!grounded)
+        {
+            Vector2 vel = _body.velocity;
+            vel.y += fakeGravity * Time.deltaTime;
+            _body.velocity = vel;
         }
 
         //animator code

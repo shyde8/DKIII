@@ -7,6 +7,8 @@ TextureImporter:
     21300004: LevelTiles_2
     21300006: LevelTiles_3
     21300008: LevelTiles_4
+    21300010: LevelTiles_5
+    21300012: LevelTiles_6
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -177,13 +179,53 @@ TextureImporter:
         width: 96
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: bbaf74eefcbd15f45b258b436ce50b94
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelTiles_5
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 8
+        width: 176
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a12cab7e14729a43a1e776615231406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelTiles_6
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 16
+        width: 8
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a370648632b27c04bb8bc486ff8e34cb
       vertices: []
       indices: 
       edges: []
