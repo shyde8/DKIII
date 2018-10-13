@@ -20,12 +20,17 @@ public class PlayerMovement : MonoBehaviour
     //private variables
     private float _scaleX;
     private float _scaleY;
-    private float _scaleZ;   
+    private float _scaleZ;
+    private bool _isClimbing = false;   
 
     //public variables
-    public float speed = 250.0f;
-    public float jumpForce = 12.0f;
-    public float fakeGravity = 20f;
+    public float speed = 150.0f;
+    public float jumpForce = 5.7f;
+    public float fakeGravity = 27f;
+    public LayerMask ladder = 8;
+    public LayerMask ground = 9;
+    public float ladderDetectionDistance = 1f;
+    public float climbSpeed = 5f;
 
     // Use this for initialization
     void Start ()
@@ -39,7 +44,6 @@ public class PlayerMovement : MonoBehaviour
         _scaleX = transform.localScale.x;
         _scaleY = transform.localScale.y;
         _scaleZ = transform.localScale.z;
-
 	}
 	
 	// Update is called once per frame
@@ -49,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
 		//only apply movement if either left or right arrow are down, to avoid "floaty" behavior
 		float deltaX = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
         Vector2 movement = new Vector2(deltaX, _body.velocity.y);
-		if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+		if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)) && !_isClimbing)
         	_body.velocity = movement;
 
 
@@ -61,28 +65,54 @@ public class PlayerMovement : MonoBehaviour
         Collider2D hit = Physics2D.OverlapArea(corner1, corner2);
         bool grounded = false;
 
-        if (hit != null)
+        //player should only be "grounded" if the object below them is marked as ground layer
+        if (hit != null && hit.GetComponent<Collider2D>().gameObject.layer==ground)
         {
             grounded = true;
         }        
 
         //jumping
-        if (grounded && Input.GetKeyDown(KeyCode.Space))
+        if (grounded && Input.GetKeyDown(KeyCode.Space) && !_isClimbing)
         {
             _body.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             grounded = false;
         }
 
         //decrease gravity while in the air
-        if (!grounded)
+        if (!grounded && !_isClimbing)
         {
             Vector2 vel = _body.velocity;
             vel.y += fakeGravity * Time.deltaTime;
             _body.velocity = vel;
         }
 
+        //ladder code
+        RaycastHit2D ladderHit = Physics2D.Raycast(transform.position, Vector2.up, ladderDetectionDistance, ladder);
+        if (ladderHit.collider != null)
+        {
+            if (Input.GetKey(KeyCode.UpArrow))
+                _isClimbing = true;
+        }
+        else
+        {
+            _isClimbing = false;
+        }
+
+        if (_isClimbing)
+        {
+            _body.gravityScale = 0;
+            if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
+            {
+                float deltaY = Input.GetAxis("Vertical") * climbSpeed;
+                Debug.Log(deltaY);
+                Vector2 climbMovement = new Vector2(_body.velocity.x, deltaY);
+                _body.velocity = climbMovement;
+                Debug.Log("set velocity");
+            }
+        }
+
         //animator code
-		if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
 		{
 			_anim.SetBool("isHorKeyDown", true);
 		}
@@ -100,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             _anim.SetBool("isJumping", false);
-        }
-            
+        }      
+                    
 	}
 }

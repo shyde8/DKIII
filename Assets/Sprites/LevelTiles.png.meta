@@ -9,6 +9,9 @@ TextureImporter:
     21300008: LevelTiles_4
     21300010: LevelTiles_5
     21300012: LevelTiles_6
+    21300014: LevelTiles_7
+    21300016: LevelTiles_8
+    21300018: LevelTiles_9
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -219,13 +222,73 @@ TextureImporter:
         width: 8
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: a370648632b27c04bb8bc486ff8e34cb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelTiles_7
+      rect:
+        serializedVersion: 2
+        x: 725
+        y: 14
+        width: 8
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58226df2e341186468a626335e14b863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelTiles_8
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 21
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86530a551cd841140b85b0695cc1a98e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelTiles_9
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 50
+        width: 8
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a84909252cfdf7a4491059b6b2c54947
       vertices: []
       indices: 
       edges: []
