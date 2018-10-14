@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private float _scaleX;
     private float _scaleY;
     private float _scaleZ;
+    private bool _isGrounded = true;
     private bool _isClimbing = false;   
 
     //public variables
@@ -49,43 +50,65 @@ public class PlayerMovement : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        //horizontal movement
-		//only apply movement if either left or right arrow are down, to avoid "floaty" behavior
-		float deltaX = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+        #region Horizontal Movement
+        //only apply movement if either left or right arrow are down, to avoid "floaty" behavior
+        float deltaX = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
         Vector2 movement = new Vector2(deltaX, _body.velocity.y);
-		if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)) && !_isClimbing)
-        	_body.velocity = movement;
+		if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)) && _isGrounded && !_isClimbing)
+        {
+            _body.velocity = movement;
+            _anim.SetBool("isHorKeyDown", true);
+        }
+        else if (_isGrounded && !_isClimbing)
+        {
+            _anim.SetBool("isHorKeyDown", false);
+        }
+        if (!Mathf.Approximately(deltaX, 0))
+            transform.localScale = new Vector3(Mathf.Sign(deltaX) * _scaleX, _scaleY, _scaleZ);
+        #endregion
 
-
+        #region Jumping
         //check-if grounded
         Vector3 max = _box.bounds.max;
         Vector3 min = _box.bounds.min;
         Vector2 corner1 = new Vector2(max.x, min.y - .1f);
         Vector2 corner2 = new Vector2(min.x, min.y - .2f);
         Collider2D hit = Physics2D.OverlapArea(corner1, corner2);
-        bool grounded = false;
+        _isGrounded = false;
 
         //player should only be "grounded" if the object below them is marked as ground layer
         if (hit != null && hit.GetComponent<Collider2D>().gameObject.layer==ground)
         {
-            grounded = true;
+            _isGrounded = true;
         }        
 
         //jumping
-        if (grounded && Input.GetKeyDown(KeyCode.Space) && !_isClimbing)
+        if (_isGrounded && Input.GetKeyDown(KeyCode.Space) && !_isClimbing)
         {
             _body.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            grounded = false;
+            _isGrounded = false;
         }
 
         //decrease gravity while in the air
-        if (!grounded && !_isClimbing)
+        if (!_isGrounded && !_isClimbing)
         {
             Vector2 vel = _body.velocity;
             vel.y += fakeGravity * Time.deltaTime;
             _body.velocity = vel;
         }
 
+        //jump animation
+        if (!_isGrounded && !_isClimbing)
+        {
+            _anim.SetBool("isJumping", true);
+        }
+        else
+        {
+            _anim.SetBool("isJumping", false);
+        }
+        #endregion
+
+        #region Ladder Movement
         //ladder code
         RaycastHit2D ladderHit = Physics2D.Raycast(transform.position, Vector2.up, ladderDetectionDistance, ladder);
         if (ladderHit.collider != null)
@@ -110,27 +133,6 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log("set velocity");
             }
         }
-
-        //animator code
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
-		{
-			_anim.SetBool("isHorKeyDown", true);
-		}
-		else 
-		{
-			_anim.SetBool("isHorKeyDown", false);
-		}
-        if (!Mathf.Approximately(deltaX, 0))
-            transform.localScale = new Vector3(Mathf.Sign(deltaX) * _scaleX, _scaleY, _scaleZ);
-
-        if (!grounded)
-        {
-            _anim.SetBool("isJumping", true);
-        }
-        else
-        {
-            _anim.SetBool("isJumping", false);
-        }      
-                    
-	}
+        #endregion 
+    }
 }
