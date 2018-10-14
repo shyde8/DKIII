@@ -21,8 +21,10 @@ public class PlayerMovement : MonoBehaviour
     private float _scaleX;
     private float _scaleY;
     private float _scaleZ;
+    private float _defGravityScale;
     private bool _isGrounded = true;
-    private bool _isClimbing = false;   
+    private bool _isClimbing = false;
+       
 
     //public variables
     public float speed = 150.0f;
@@ -45,6 +47,9 @@ public class PlayerMovement : MonoBehaviour
         _scaleX = transform.localScale.x;
         _scaleY = transform.localScale.y;
         _scaleZ = transform.localScale.z;
+
+        //grab default gravity scale
+        _defGravityScale = _body.gravityScale;
 	}
 	
 	// Update is called once per frame
@@ -76,8 +81,8 @@ public class PlayerMovement : MonoBehaviour
         Collider2D hit = Physics2D.OverlapArea(corner1, corner2);
         _isGrounded = false;
 
-        //player should only be "grounded" if the object below them is marked as ground layer
-        if (hit != null && hit.GetComponent<Collider2D>().gameObject.layer==ground)
+        //player should only be "grounded" if the object below them is marked as ground layer (note: currently we're using a hard-coded value of 9 to check equality)
+        if (hit != null && hit.GetComponent<Collider2D>().gameObject.layer==9)
         {
             _isGrounded = true;
         }        
@@ -109,30 +114,34 @@ public class PlayerMovement : MonoBehaviour
         #endregion
 
         #region Ladder Movement
-        //ladder code
         RaycastHit2D ladderHit = Physics2D.Raycast(transform.position, Vector2.up, ladderDetectionDistance, ladder);
         if (ladderHit.collider != null)
         {
             if (Input.GetKey(KeyCode.UpArrow))
+            {
                 _isClimbing = true;
-        }
-        else
-        {
-            _isClimbing = false;
+                //set x position to that of the ladder, to "lock" the player into it
+                Vector2 newPos = new Vector2(ladderHit.transform.position.x, transform.position.y);
+                _body.MovePosition(newPos);
+            }             
         }
 
         if (_isClimbing)
         {
-            _body.gravityScale = 0;
-            if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
+            _body.gravityScale = 0; //gravity should not apply to jumpman while climbing            
+            if (Input.GetKey(KeyCode.UpArrow))
             {
-                float deltaY = Input.GetAxis("Vertical") * climbSpeed;
-                Debug.Log(deltaY);
-                Vector2 climbMovement = new Vector2(_body.velocity.x, deltaY);
-                _body.velocity = climbMovement;
-                Debug.Log("set velocity");
+                _body.AddForce(Vector2.up * climbSpeed, ForceMode2D.Impulse);
+                //after moving jumpman upward, set velocity to zero so there's no momentum while climbing
+                _body.velocity = Vector3.zero;
             }
         }
-        #endregion 
+        else if (!_isClimbing)
+        {
+            _body.gravityScale = _defGravityScale;
+        }
+
+        #endregion     
+
     }
 }
