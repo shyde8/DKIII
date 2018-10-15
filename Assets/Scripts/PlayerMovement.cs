@@ -128,19 +128,25 @@ public class PlayerMovement : MonoBehaviour
 
         if (_isClimbing)
         {
-            _body.gravityScale = 0; //gravity should not apply to jumpman while climbing            
+            _body.gravityScale = 0; //gravity should not apply to jumpman while climbing
+            _body.velocity = Vector3.zero; //set velocity to zero in climbing-mode to eliminate momentum
             if (Input.GetKey(KeyCode.UpArrow))
             {
                 _body.AddForce(Vector2.up * climbSpeed, ForceMode2D.Impulse);
-                //after moving jumpman upward, set velocity to zero so there's no momentum while climbing
-                _body.velocity = Vector3.zero;
             }
+            else if (Input.GetKey(KeyCode.DownArrow))
+            {
+                _body.AddForce(Vector2.down * climbSpeed, ForceMode2D.Impulse);
+            }
+
+
         }
         else if (!_isClimbing)
         {
             _body.gravityScale = _defGravityScale;
         }
 
+        
         #endregion     
 
     }
