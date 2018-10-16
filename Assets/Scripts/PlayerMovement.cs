@@ -76,8 +76,8 @@ public class PlayerMovement : MonoBehaviour
         //check-if grounded
         Vector3 max = _box.bounds.max;
         Vector3 min = _box.bounds.min;
-        Vector2 corner1 = new Vector2(max.x, min.y - .1f);
-        Vector2 corner2 = new Vector2(min.x, min.y - .2f);
+        Vector2 corner1 = new Vector2(max.x, min.y - .06f);
+        Vector2 corner2 = new Vector2(min.x, min.y - .06f);
         Collider2D hit = Physics2D.OverlapArea(corner1, corner2);
         _isGrounded = false;
 
@@ -120,16 +120,24 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKey(KeyCode.UpArrow))
             {
                 _isClimbing = true;
+                _body.gravityScale = 0; //gravity should not apply to jumpman while climbing                
                 //set x position to that of the ladder, to "lock" the player into it
                 Vector2 newPos = new Vector2(ladderHit.transform.position.x, transform.position.y);
                 _body.MovePosition(newPos);
+                //apply initial small burst upward, so we're no longer grounded after initially entering climbing mode
+                _body.AddForce(Vector2.up * climbSpeed, ForceMode2D.Impulse);
+            }
+            
+            //exit climbing mode if touching the ground
+            else if (_isGrounded)
+            {
+                _isClimbing = false;
             }             
         }
 
         if (_isClimbing)
-        {
-            _body.gravityScale = 0; //gravity should not apply to jumpman while climbing
-            _body.velocity = Vector3.zero; //set velocity to zero in climbing-mode to eliminate momentum
+        {            
+            _body.velocity = Vector3.zero; //set velocity to zero in each frame in climbing-mode to eliminate momentum
             if (Input.GetKey(KeyCode.UpArrow))
             {
                 _body.AddForce(Vector2.up * climbSpeed, ForceMode2D.Impulse);
