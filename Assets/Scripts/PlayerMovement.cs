@@ -34,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask ground = 9;
     public float ladderDetectionDistance = 1f;
     public float climbSpeed = 5f;
+    public const float PLATFORM_THICKNESS = 0.4f;
 
     // Use this for initialization
     void Start ()
@@ -51,9 +52,9 @@ public class PlayerMovement : MonoBehaviour
         //grab default gravity scale
         _defGravityScale = _body.gravityScale;
 	}
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update ()
     {
         #region Horizontal Movement
         //only apply movement if either left or right arrow are down, to avoid "floaty" behavior
@@ -114,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
         #endregion
 
         #region Ladder Movement
-        RaycastHit2D ladderHit = Physics2D.Raycast(transform.position, Vector2.up, ladderDetectionDistance, ladder);
+        RaycastHit2D ladderHit = Physics2D.Raycast(transform.position, Vector2.up, ladderDetectionDistance, ladder);        
         if (ladderHit.collider != null)
         {
             if (Input.GetKey(KeyCode.UpArrow))
@@ -126,13 +127,7 @@ public class PlayerMovement : MonoBehaviour
                 _body.MovePosition(newPos);
                 //apply initial small burst upward, so we're no longer grounded after initially entering climbing mode
                 _body.AddForce(Vector2.up * climbSpeed, ForceMode2D.Impulse);
-            }
-            
-            //exit climbing mode if touching the ground
-            else if (_isGrounded)
-            {
-                _isClimbing = false;
-            }             
+            }                               
         }
 
         if (_isClimbing)
@@ -146,16 +141,22 @@ public class PlayerMovement : MonoBehaviour
             {
                 _body.AddForce(Vector2.down * climbSpeed, ForceMode2D.Impulse);
             }
+            //exit climbing mode if touching the ground, and if a downward raycast from bottom of jumpman offset by platform thickness is not touching a ladder
+            Vector2 startPos = new Vector2(transform.position.x, _box.bounds.min.y);
+            Vector2 endPos = transform.TransformDirection(Vector2.down);
+            RaycastHit2D platformHit = Physics2D.Raycast(startPos, Vector2.down, PLATFORM_THICKNESS, ladder);            
+            if (_isGrounded && platformHit.collider==null)
+            {
 
+                _isClimbing = false;
+            }
 
         }
         else if (!_isClimbing)
         {
             _body.gravityScale = _defGravityScale;
         }
-
-        
-        #endregion     
+        #endregion
 
     }
 }
