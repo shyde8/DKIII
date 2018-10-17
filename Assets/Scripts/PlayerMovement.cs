@@ -125,8 +125,9 @@ public class PlayerMovement : MonoBehaviour
                 //set x position to that of the ladder, to "lock" the player into it
                 Vector2 newPos = new Vector2(ladderHit.transform.position.x, transform.position.y);
                 _body.MovePosition(newPos);
-                //apply initial small burst upward, so we're no longer grounded after initially entering climbing mode
-                _body.AddForce(Vector2.up * climbSpeed, ForceMode2D.Impulse);
+                //apply initial small burst upward if we're grounded, so we're no longer grounded after initially entering climbing mode
+                if (_isGrounded)
+                    _body.AddForce(Vector2.up * climbSpeed, ForceMode2D.Impulse);
             }                               
         }
 

@@ -411,6 +411,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1558637750532258, guid: 0c563852edb136e459e465eee2964a65, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c563852edb136e459e465eee2964a65, type: 2}
   m_IsPrefabAsset: 0
@@ -1275,7 +1279,7 @@ Prefab:
     - target: {fileID: 114494326140488022, guid: a45e47c320d419e469b1ae7d4483d22c,
         type: 2}
       propertyPath: climbSpeed
-      value: 1
+      value: 0.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a45e47c320d419e469b1ae7d4483d22c, type: 2}
