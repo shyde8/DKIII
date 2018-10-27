@@ -117,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
         #region Ladder Movement
         RaycastHit2D ladderUp = Physics2D.Raycast(transform.position, Vector2.up, ladderDetectionDistance, ladder);
         RaycastHit2D ladderDown = Physics2D.Raycast(transform.position, Vector2.down, ladderDetectionDistance + 1f, ladder);
-        if (ladderUp.collider != null && Input.GetKey(KeyCode.UpArrow))
+        if (ladderUp.collider != null && Input.GetKey(KeyCode.UpArrow) && _isGrounded)
         {
             _isClimbing = true;
             _body.gravityScale = 0; //gravity should not apply to jumpman while climbing                
@@ -128,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
             if (_isGrounded)
                 _body.AddForce(Vector2.up * climbSpeed, ForceMode2D.Impulse);
         }
-        else if (ladderDown.collider != null && Input.GetKey(KeyCode.DownArrow))
+        else if (ladderDown.collider != null && Input.GetKey(KeyCode.DownArrow) && _isGrounded)
         {          
             _isClimbing = true;
             _body.gravityScale = 0; //gravity should not apply to jumpman while climbing                
