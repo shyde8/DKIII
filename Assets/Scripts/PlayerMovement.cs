@@ -24,11 +24,13 @@ public class PlayerMovement : MonoBehaviour
     private float _defGravityScale;
     private bool _isGrounded = true;
     private bool _isClimbing = false;
+    private bool _isCappyJumping = false;
 
 
     //public variables
     public float speed = 150.0f;
     public float jumpForce = 5.7f;
+    public float cappyJumpMultiplier = 1.4f; //this is multiplied against the jumpForce variable
     public float fakeGravity = 27f;
     public LayerMask ladder = 8;
     public LayerMask ground = 9;
@@ -86,6 +88,7 @@ public class PlayerMovement : MonoBehaviour
         if (hit != null && hit.GetComponent<Collider2D>().gameObject.layer == 9)
         {
             _isGrounded = true;
+            _isCappyJumping = false;
         }
 
         //jumping
@@ -111,6 +114,22 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             _anim.SetBool("isJumping", false);
+        }
+        #endregion
+
+        #region Cappy Movement
+        if (hit != null)
+        {            
+            if (hit.GetComponent<CappyMovement>() != null && !_isCappyJumping)
+            {
+                //before applying additional upward force, set velocity.y to 0, to make all bounces off cappy equal no matter where you are in jump arc
+                Vector2 currVel = _body.velocity;
+                currVel.y = 0;
+                _body.velocity = currVel;
+
+                _isCappyJumping = true;                
+                _body.AddForce(Vector2.up * (jumpForce*cappyJumpMultiplier), ForceMode2D.Impulse);
+            }
         }
         #endregion
 
