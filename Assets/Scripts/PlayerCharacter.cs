@@ -29,7 +29,10 @@ public class PlayerCharacter : MonoBehaviour
                 //scale is positive if jumpman is facing right, scale is negative if jumpman is facing left
                 float dir = Mathf.Sign(transform.localScale.x);
                 Vector2 newPos = new Vector2(transform.position.x + (dir * (_width/1.5f)), transform.position.y + (_height/2) - (cappyHeight/2));
-                _cappy.transform.position = newPos;                
+                _cappy.transform.position = newPos;
+                //set scale of cappy to negative, if he was generated to the left of jumpman
+                Vector3 tempScale = _cappy.transform.localScale;
+                _cappy.transform.localScale = new Vector3(tempScale.x * dir, tempScale.y);             
             }
         }                   
     }
