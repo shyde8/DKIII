@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class CappyMovement : MonoBehaviour
 {
-    public float SPIN_MULTIPLIER = 1000f;
-    public float speed = 1.75f;
+    /*todo:
+     * cappy should start returning to jumpman as soon as jumpman jumps on him 
+     * there should be a cooldown time after cappy returns to jumpman, during which he cannot be thrown
+     */
+
+    public float SPIN_MULTIPLIER = 1000f;    
     public float endPosOffset = 1.75f;
 
+    private float speed = 3f;
     private Vector3 _startPos;
     private Vector3 _endPos;
     private float _trackPercent = 0;
@@ -15,6 +20,7 @@ public class CappyMovement : MonoBehaviour
     private GameObject _jumpMan;
     private float _yOffset; //to be used in Return() coroutine, so Cappy targets the same height of jumpman he was released from
     private bool _isReturnRunning = false; //flag to indicate whether the the Return() coroutine has started
+    private float _accumulatedTime = 0f;
 
     private void Start()
     {
@@ -45,6 +51,24 @@ public class CappyMovement : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
 
+        //cappy should always hover for a certain duration, before calling the Hover() coroutine
+        yield return new WaitForSeconds(1);
+
+        StartCoroutine(Hover());
+    }
+
+    private IEnumerator Hover()
+    {
+        while (_accumulatedTime < 2f)
+        {
+            if (Input.GetAxis("Fire2") > 0f)
+            {
+                _accumulatedTime += Time.deltaTime;
+                yield return new WaitForFixedUpdate();
+            }
+            else
+                _accumulatedTime = 2f;
+        }
         StartCoroutine(Return());
     }
 
