@@ -12,7 +12,7 @@ public class CappyMovement : MonoBehaviour
     public float SPIN_MULTIPLIER = 1000f;    
     public float endPosOffset = 1.75f;
 
-    private float speed = 3f;
+    private float speed = 5f;
     private Vector3 _startPos;
     private Vector3 _endPos;
     private float _trackPercent = 0;
@@ -21,6 +21,7 @@ public class CappyMovement : MonoBehaviour
     private float _yOffset; //to be used in Return() coroutine, so Cappy targets the same height of jumpman he was released from
     private bool _isReturnRunning = false; //flag to indicate whether the the Return() coroutine has started
     private float _accumulatedTime = 0f;
+    private float _returnSpeedMultiplier = 2f; //we want cappy to return to jumpman at faster than the speed at which he is initially thrown
 
     private void Start()
     {
@@ -80,7 +81,7 @@ public class CappyMovement : MonoBehaviour
             //_endPos in Return coroutine will always be jumpman's position, and _startPos is cappy's current position
             _endPos = _jumpMan.transform.position;
             _startPos = transform.position;
-            float x = (_endPos.x - _startPos.x) * (speed * Time.deltaTime) + _startPos.x;
+            float x = (_endPos.x - _startPos.x) * (speed * Time.deltaTime * _returnSpeedMultiplier) + _startPos.x;
             float y = ((_endPos.y+_yOffset) - _startPos.y) * (speed * Time.deltaTime) + _startPos.y; //ensure we're targeting jumpman's y-position, offset by _yOffset
             transform.position = new Vector3(x, y);
 
