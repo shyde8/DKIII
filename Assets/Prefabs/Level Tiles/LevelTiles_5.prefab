@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212290557237241444}
   - component: {fileID: 61531615264031894}
   - component: {fileID: 251551915338475798}
+  - component: {fileID: 114128260316788192}
   m_Layer: 9
   m_Name: LevelTiles_5
   m_TagString: Untagged
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1795306590171582}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.051394526, y: -1.3019876, z: 0}
+  m_LocalPosition: {x: 0, y: -1.3019876, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -58,7 +59,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.76, y: 0.08}
+    oldSize: {x: 2.24, y: 0.08}
     newSize: {x: 1.76, y: 0.08}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -67,6 +68,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.76, y: 0.08}
   m_EdgeRadius: 0
+--- !u!114 &114128260316788192
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1795306590171582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eabf11acf10f0864197552e090776b3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212290557237241444
 SpriteRenderer:
   m_ObjectHideFlags: 1
