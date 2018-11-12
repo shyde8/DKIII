@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /*Current Gravity settings in-place:
@@ -25,7 +26,6 @@ public class PlayerMovement : MonoBehaviour
     private bool _isGrounded = true;
     private bool _isClimbing = false;
     private bool _isCappyJumping = false;
-
 
     //public variables
     public float speed = 150.0f;
@@ -198,5 +198,36 @@ public class PlayerMovement : MonoBehaviour
         //set isTrigger for hit == false, only for ground
         if (collision.GetComponent<Collider2D>().gameObject.layer == 9 && collision.gameObject.GetComponent<BoxCollider2D>().isTrigger == true)
             collision.gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //the below code allows jumpman to walk "up" platforms that are not exactly equal in height
+        if (_isGrounded && collision.gameObject.GetComponent<StairBehavior>() != null)
+        {
+            Vector2 bottomRight = new Vector2(_box.bounds.max.x, _box.bounds.min.y);
+            Vector2 bottomLeft = new Vector2(_box.bounds.min.x, _box.bounds.min.y);
+            float dir = Mathf.Sign(transform.localScale.x);
+            //raycasts currently hard-coded to use 9 (ground layer) for LayerMask bitwise operation
+            RaycastHit2D platformRight = Physics2D.Raycast(bottomRight, Vector2.right, 0.1f, 1 << 9);
+            RaycastHit2D platformLeft = Physics2D.Raycast(bottomLeft, Vector2.left, 0.1f, 1 << 9);
+            float currentHeight = gameObject.GetComponent<SpriteRenderer>().bounds.size.y;
+            if (dir > 0)
+            {
+                if (platformRight.collider != null && platformRight.collider.gameObject.GetComponent<StairBehavior>() != null)
+                {
+                    Vector3 newPos = new Vector3((transform.position.x + .02f), platformRight.collider.bounds.max.y + ((currentHeight / 2) + .02f));
+                    transform.position = newPos;
+                }
+            }
+            else if (dir < 0)
+            {
+                if (platformLeft.collider != null && platformLeft.collider.gameObject.GetComponent<StairBehavior>() != null)
+                {
+                    Vector3 newPos = new Vector3((transform.position.x - .02f), platformLeft.collider.bounds.max.y + ((currentHeight / 2) + .02f));
+                    transform.position = newPos;
+                }
+            }            
+        }
     }
 }
