@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 2263993885
+    locked: 0
+  - name: Level
+    uniqueID: 3763513113
+    locked: 0
+  - name: Jumpman
+    uniqueID: 2072037343
+    locked: 0

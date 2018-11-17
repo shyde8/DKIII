@@ -157,7 +157,7 @@ public class PlayerMovement : MonoBehaviour
 
             //only set isTrigger to true if there's no ladder immediately above you
             if (hit != null && ladderUp.collider == null)
-                hit.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+                hit.gameObject.GetComponent<Collider2D>().isTrigger = true;
             //apply initial small burst downward if we're grounded, so we're no longer grounded after initially entering climbing mode
             if (_isGrounded)
                 _body.AddForce(Vector2.down * climbSpeed, ForceMode2D.Impulse);
@@ -175,9 +175,10 @@ public class PlayerMovement : MonoBehaviour
                 _body.AddForce(Vector2.down * climbSpeed, ForceMode2D.Impulse);
             }
             //exit climbing mode if touching the ground, and if a downward raycast from bottom of jumpman offset by platform thickness is not touching a ladder
-            Vector2 startPos = new Vector2(transform.position.x, _box.bounds.min.y);
-            Vector2 endPos = transform.TransformDirection(Vector2.down);
-            RaycastHit2D platformHit = Physics2D.Raycast(startPos, Vector2.down, PLATFORM_THICKNESS, ladder);
+            //11-16-2018, subtracted .01f from y-position of startPos, since there were instances where the raycast was still detecting the ladder
+            Vector2 startPos = new Vector2(transform.position.x, _box.bounds.min.y - .01f);
+            RaycastHit2D platformHit = Physics2D.Raycast(startPos, Vector2.down, PLATFORM_THICKNESS, 1<<8);
+
             if (_isGrounded && platformHit.collider == null)
             {
                 _isClimbing = false;
@@ -196,8 +197,8 @@ public class PlayerMovement : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         //set isTrigger for hit == false, only for ground
-        if (collision.GetComponent<Collider2D>().gameObject.layer == 9 && collision.gameObject.GetComponent<BoxCollider2D>().isTrigger == true)
-            collision.gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+        if (collision.GetComponent<Collider2D>().gameObject.layer == 9 && collision.gameObject.GetComponent<Collider2D>().isTrigger == true)
+            collision.gameObject.GetComponent<Collider2D>().isTrigger = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
