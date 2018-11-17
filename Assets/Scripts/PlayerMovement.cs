@@ -91,6 +91,23 @@ public class PlayerMovement : MonoBehaviour
             _isCappyJumping = false;
         }
 
+        //parent jumpman to object below him if it contains a MovingPlatform script, and perform counter-scaling if needed
+        MovingPlatform platform = null;
+        Vector3 pScale = Vector3.one;
+        if (hit != null && _isGrounded == true)        
+            platform = hit.GetComponent<MovingPlatform>();
+        if (platform != null)
+        {
+            transform.parent = platform.transform;
+            pScale = platform.transform.localScale;
+        }            
+        else
+            transform.parent = null;
+        if (deltaX != 0)
+        {
+            transform.localScale = new Vector3((Mathf.Sign(deltaX) * _scaleX) / pScale.x, _scaleY / pScale.y, _scaleZ);
+        }     
+
         //jumping
         if (_isGrounded && Input.GetKeyDown(KeyCode.Space) && !_isClimbing)
         {
