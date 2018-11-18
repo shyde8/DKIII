@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private float _scaleZ;
     private float _defGravityScale;
     private bool _isGrounded = true;
+    private bool _isJumping = false; //added on 11-17-2018, we'll use this variable to determine whether player can jump, rather than checking _isGrounded
     private bool _isClimbing = false;
     private bool _isCappyJumping = false;
 
@@ -61,7 +62,8 @@ public class PlayerMovement : MonoBehaviour
         #region Horizontal Movement
         //only apply movement if either left or right arrow are down, to avoid "floaty" behavior
         float deltaX = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
-        Vector2 movement = new Vector2(deltaX, _body.velocity.y);
+        //11-17-2018, changed movement vector so 0 is hard-coded for y-movement
+        Vector2 movement = new Vector2(deltaX, 0);
         if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)) && _isGrounded && !_isClimbing)
         {
             _body.velocity = movement;
@@ -88,35 +90,20 @@ public class PlayerMovement : MonoBehaviour
         if (hit != null && hit.GetComponent<Collider2D>().gameObject.layer == 9)
         {
             _isGrounded = true;
+            _isJumping = false;
             _isCappyJumping = false;
-        }
-
-        //parent jumpman to object below him if it contains a MovingPlatform script, and perform counter-scaling if needed
-        MovingPlatform platform = null;
-        Vector3 pScale = Vector3.one;
-        if (hit != null && _isGrounded == true)        
-            platform = hit.GetComponent<MovingPlatform>();
-        if (platform != null)
-        {
-            transform.parent = platform.transform;
-            pScale = platform.transform.localScale;
-        }            
-        else
-            transform.parent = null;
-        if (deltaX != 0)
-        {
-            transform.localScale = new Vector3((Mathf.Sign(deltaX) * _scaleX) / pScale.x, _scaleY / pScale.y, _scaleZ);
         }     
 
         //jumping
-        if (_isGrounded && Input.GetKeyDown(KeyCode.Space) && !_isClimbing)
+        if (!_isJumping && Input.GetKeyDown(KeyCode.Space) && !_isClimbing)
         {
             _body.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            _isJumping = true;
             _isGrounded = false;
         }
 
         //decrease gravity while in the air
-        if (!_isGrounded && !_isClimbing)
+        if (!_isGrounded && !_isClimbing && _isJumping)
         {
             Vector2 vel = _body.velocity;
             vel.y += fakeGravity * Time.deltaTime;
@@ -124,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //jump animation
-        if (!_isGrounded && !_isClimbing)
+        if (!_isGrounded && !_isClimbing && _isJumping)
         {
             _anim.SetBool("isJumping", true);
         }
@@ -133,6 +120,23 @@ public class PlayerMovement : MonoBehaviour
             _anim.SetBool("isJumping", false);
         }
         #endregion
+
+        //parent jumpman to object below him if it contains a MovingPlatform script, and perform counter-scaling if needed
+        MovingPlatform platform = null;
+        Vector3 pScale = Vector3.one;
+        if (hit != null && _isGrounded == true)
+            platform = hit.GetComponent<MovingPlatform>();
+        if (platform != null)
+        {
+            transform.parent = platform.transform;
+            pScale = platform.transform.localScale;
+        }
+        else
+            transform.parent = null;
+        if (deltaX != 0)
+        {
+            transform.localScale = new Vector3((Mathf.Sign(deltaX) * _scaleX) / pScale.x, _scaleY / pScale.y, _scaleZ);
+        }
 
         #region Cappy Movement
         if (hit != null)
@@ -151,8 +155,8 @@ public class PlayerMovement : MonoBehaviour
         #endregion
 
         #region Ladder Movement
-        RaycastHit2D ladderUp = Physics2D.Raycast(transform.position, Vector2.up, ladderDetectionDistance, ladder);
-        RaycastHit2D ladderDown = Physics2D.Raycast(transform.position, Vector2.down, ladderDetectionDistance + 1f, ladder);
+        RaycastHit2D ladderUp = Physics2D.Raycast(transform.position, Vector2.up, ladderDetectionDistance, 1 << LayerMask.NameToLayer("Ladder"));
+        RaycastHit2D ladderDown = Physics2D.Raycast(transform.position, Vector2.down, ladderDetectionDistance + 1f, 1 << LayerMask.NameToLayer("Ladder"));
         if (ladderUp.collider != null && Input.GetKey(KeyCode.UpArrow) && _isGrounded)
         {
             _isClimbing = true;
@@ -162,7 +166,10 @@ public class PlayerMovement : MonoBehaviour
             _body.MovePosition(newPos);
             //apply initial small burst upward if we're grounded, so we're no longer grounded after initially entering climbing mode
             if (_isGrounded)
+            {
                 _body.AddForce(Vector2.up * climbSpeed, ForceMode2D.Impulse);
+                _isGrounded = false; //11-17-2018, added hard-coding of _isGrounded to false once you enter climbing mode
+            }                
         }
         else if (ladderDown.collider != null && Input.GetKey(KeyCode.DownArrow) && _isGrounded)
         {          
@@ -177,7 +184,10 @@ public class PlayerMovement : MonoBehaviour
                 hit.gameObject.GetComponent<Collider2D>().isTrigger = true;
             //apply initial small burst downward if we're grounded, so we're no longer grounded after initially entering climbing mode
             if (_isGrounded)
+            {
                 _body.AddForce(Vector2.down * climbSpeed, ForceMode2D.Impulse);
+                _isGrounded = false; //11-17-2018, added hard-coding of _isGrounded to false once you enter climbing mode
+            }                
         }
 
         if (_isClimbing)
@@ -192,12 +202,9 @@ public class PlayerMovement : MonoBehaviour
                 _body.AddForce(Vector2.down * climbSpeed, ForceMode2D.Impulse);
             }
             //exit climbing mode if touching the ground, and if a downward raycast from bottom of jumpman offset by platform thickness is not touching a ladder
-            //11-16-2018, subtracted .04f from y-position of startPos, since there were instances where the raycast was still detecting the ladder
-            Vector2 startPos = new Vector2(transform.position.x, _box.bounds.min.y - .04f);
+            //11-16-2018, subtracted .04f from y-position of startPos, since there were instances where the raycast was still detecting the ladder            
+            Vector2 startPos = new Vector2(transform.position.x, _box.bounds.min.y - .05f);
             RaycastHit2D platformHit = Physics2D.Raycast(startPos, Vector2.down, PLATFORM_THICKNESS, 1 << LayerMask.NameToLayer("Ladder"));
-            Debug.DrawRay(startPos, Vector2.down, Color.white, 5);
-            //if (platformHit != null)
-            //    Debug.Log(platformHit.collider.gameObject.name);
             if (_isGrounded && platformHit.collider == null)
             {
                 _isClimbing = false;
@@ -210,7 +217,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         #endregion
-
     }
 
     private void OnTriggerExit2D(Collider2D collision)
