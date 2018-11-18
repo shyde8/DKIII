@@ -37,17 +37,18 @@ public class PlayerCharacter : MonoBehaviour
         }                   
     }
 
-    //for now, we just reset the scene when player touches a ReactiveEnemy
+    
     void OnCollisionEnter2D(Collision2D col)
     {
+        //for now, we just reset the scene when player touches a ReactiveEnemy
         ReactiveEnemy enemy = col.gameObject.GetComponent<ReactiveEnemy>();
         if (enemy != null)
         {
             SceneManager.LoadScene("SampleScene");
         }
-    }
 
-    
-
-
+        //for now, we just reset the scene when player touches the bottom of the level
+        if (string.Equals("Background", col.gameObject.name, System.StringComparison.OrdinalIgnoreCase))
+            SceneManager.LoadScene("SampleScene");
+    }  
 }

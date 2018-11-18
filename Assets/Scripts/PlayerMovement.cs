@@ -192,10 +192,12 @@ public class PlayerMovement : MonoBehaviour
                 _body.AddForce(Vector2.down * climbSpeed, ForceMode2D.Impulse);
             }
             //exit climbing mode if touching the ground, and if a downward raycast from bottom of jumpman offset by platform thickness is not touching a ladder
-            //11-16-2018, subtracted .01f from y-position of startPos, since there were instances where the raycast was still detecting the ladder
-            Vector2 startPos = new Vector2(transform.position.x, _box.bounds.min.y - .01f);
-            RaycastHit2D platformHit = Physics2D.Raycast(startPos, Vector2.down, PLATFORM_THICKNESS, 1<<8);
-
+            //11-16-2018, subtracted .04f from y-position of startPos, since there were instances where the raycast was still detecting the ladder
+            Vector2 startPos = new Vector2(transform.position.x, _box.bounds.min.y - .04f);
+            RaycastHit2D platformHit = Physics2D.Raycast(startPos, Vector2.down, PLATFORM_THICKNESS, 1 << LayerMask.NameToLayer("Ladder"));
+            Debug.DrawRay(startPos, Vector2.down, Color.white, 5);
+            //if (platformHit != null)
+            //    Debug.Log(platformHit.collider.gameObject.name);
             if (_isGrounded && platformHit.collider == null)
             {
                 _isClimbing = false;
