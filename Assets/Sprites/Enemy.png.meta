@@ -3,6 +3,7 @@ guid: 12d93d13308c83546bde89f3b7a144e8
 TextureImporter:
   fileIDToRecycleName:
     21300000: Enemy_0
+    21300002: Enemy_1
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -124,6 +125,58 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 20c436c8f9607d648b6b1eb10993c634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_1
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 310
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -6, y: -5}
+        - {x: -6, y: -1}
+        - {x: -5, y: 3}
+        - {x: -5, y: 4}
+        - {x: -3, y: 6}
+        - {x: -4, y: 6}
+        - {x: -4, y: 7}
+        - {x: -3, y: 7}
+        - {x: -3, y: 8}
+        - {x: 7, y: 8}
+        - {x: 7, y: 6}
+        - {x: 7, y: 5}
+        - {x: 6, y: 5}
+        - {x: 6, y: 4}
+        - {x: 7, y: 4}
+        - {x: 7, y: 3}
+        - {x: 6, y: 3}
+        - {x: 6, y: 2}
+        - {x: 5, y: 2}
+        - {x: 5, y: 1}
+        - {x: 4, y: 1}
+        - {x: 4, y: 0}
+        - {x: 5, y: 0}
+        - {x: 5, y: -4}
+        - {x: 4, y: -4}
+        - {x: 4, y: -6}
+        - {x: 2, y: -6}
+        - {x: 2, y: -7}
+        - {x: -3, y: -7}
+        - {x: -3, y: -6}
+        - {x: -5, y: -6}
+        - {x: -5, y: -5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de671c87054eb9f4aac9d5f9e40ef10b
       vertices: []
       indices: 
       edges: []
