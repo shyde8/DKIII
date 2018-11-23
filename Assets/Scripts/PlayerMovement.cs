@@ -28,10 +28,12 @@ public class PlayerMovement : MonoBehaviour
     private bool _isClimbing = false;
     private bool _isCappyJumping = false;
     private bool _isBouncing = false;
+    private bool _isWallJumping = false;
 
     //public variables
     public float speed = 150.0f;
     public float jumpForce = 5.7f;
+    public float wallSlideSpeed = -1f;
     public float cappyJumpMultiplier = 1.4f; //this is multiplied against the jumpForce variable
     public float fakeGravity = 27f;
     public LayerMask ladder = 8;
@@ -62,10 +64,10 @@ public class PlayerMovement : MonoBehaviour
     {
         #region Horizontal Movement
         //only apply movement if either left or right arrow are down, to avoid "floaty" behavior
-        float deltaX = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
-        //11-17-2018, changed movement vector so 0 is hard-coded for y-movement
-        Vector2 movement = new Vector2(deltaX, 0);
-        if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)) && _isGrounded && !_isClimbing && !_isBouncing)
+        float deltaX = 0;
+        deltaX = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+        Vector2 movement = new Vector2(deltaX, _body.velocity.y);
+        if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)) && _isGrounded && !_isClimbing)
         {
             _body.velocity = movement;
             _anim.SetBool("isHorKeyDown", true);
@@ -94,18 +96,20 @@ public class PlayerMovement : MonoBehaviour
             _isJumping = false;
             _isCappyJumping = false;
             _isBouncing = false;
-        }     
+        }
 
         //jumping
-        if (!_isJumping && Input.GetKeyDown(KeyCode.Space) && !_isClimbing && !_isBouncing)
+        bool _jumped = false;
+        if (!_isJumping && Input.GetKeyDown(KeyCode.Space) && !_isClimbing && !_isBouncing && !_isWallJumping)
         {
             _body.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             _isJumping = true;
             _isGrounded = false;
+            _jumped = true;
         }
 
         //decrease gravity while in the air
-        if (!_isGrounded && !_isClimbing && (_isJumping || _isBouncing))
+        if (!_isGrounded && !_isClimbing && (_isJumping || _isBouncing || _isWallJumping))
         {
             Vector2 vel = _body.velocity;
             vel.y += fakeGravity * Time.deltaTime;
@@ -113,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //jump animation
-        if (!_isGrounded && !_isClimbing && (_isJumping || _isBouncing))
+        if (!_isGrounded && !_isClimbing && (_isJumping || _isBouncing || _isWallJumping))
         {
             _anim.SetBool("isJumping", true);
         }
@@ -121,6 +125,40 @@ public class PlayerMovement : MonoBehaviour
         {
             _anim.SetBool("isJumping", false);
         }
+        #endregion
+
+        #region Wall Jump
+        //Vector2 corner1 = new Vector2(max.x, min.y - .06f);
+        //Vector2 corner2 = new Vector2(min.x, min.y - .06f);
+        Vector2 corner3 = new Vector2(min.x, max.y - .06f);
+        Vector2 corner4 = new Vector2(max.x, max.y - .06f);
+        Collider2D wallLeft = Physics2D.OverlapArea(corner2, corner3, 1 << LayerMask.NameToLayer("Wall"));
+        Collider2D wallRight = Physics2D.OverlapArea(corner1, corner4, 1 << LayerMask.NameToLayer("Wall"));
+
+        if ((wallLeft != null && Input.GetKey(KeyCode.LeftArrow) && !_isGrounded) || (wallRight != null && Input.GetKey(KeyCode.RightArrow) && !_isGrounded))
+            _isWallJumping = true;
+        else
+            _isWallJumping = false;
+
+        if (_isWallJumping)
+        {            
+            if (_body.velocity.y < wallSlideSpeed)
+            {
+                Vector2 tempVel = new Vector2(_body.velocity.x, wallSlideSpeed);
+                _body.velocity = tempVel;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space) && _jumped == false)
+            {
+                deltaX *= -1;
+                Vector2 currVel = _body.velocity;
+                currVel.y = 0;
+                currVel.x = deltaX;
+                _body.velocity = currVel;
+                _body.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            }
+        }       
+
         #endregion
 
         //parent jumpman to object below him if it contains a MovingPlatform script, and perform counter-scaling if needed
@@ -232,7 +270,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _body.gravityScale = _defGravityScale;
         }
-
+        
         #endregion
     }
 
@@ -246,7 +284,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //the below code allows jumpman to walk "up" platforms that are not exactly equal in height
-        if (_isGrounded && collision.gameObject.GetComponent<StairBehavior>() != null)
+        if (_isGrounded && collision.gameObject.GetComponent<StairBehavior>())
         {
             Vector2 bottomRight = new Vector2(_box.bounds.max.x, _box.bounds.min.y);
             Vector2 bottomLeft = new Vector2(_box.bounds.min.x, _box.bounds.min.y);
