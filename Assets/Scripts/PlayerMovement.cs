@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _isJumping = false; //added on 11-17-2018, we'll use this variable to determine whether player can jump, rather than checking _isGrounded
     private bool _isClimbing = false;
     private bool _isCappyJumping = false;
+    private bool _isBouncing = false;
 
     //public variables
     public float speed = 150.0f;
@@ -64,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
         float deltaX = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
         //11-17-2018, changed movement vector so 0 is hard-coded for y-movement
         Vector2 movement = new Vector2(deltaX, 0);
-        if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)) && _isGrounded && !_isClimbing)
+        if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)) && _isGrounded && !_isClimbing && !_isBouncing)
         {
             _body.velocity = movement;
             _anim.SetBool("isHorKeyDown", true);
@@ -92,10 +93,11 @@ public class PlayerMovement : MonoBehaviour
             _isGrounded = true;
             _isJumping = false;
             _isCappyJumping = false;
+            _isBouncing = false;
         }     
 
         //jumping
-        if (!_isJumping && Input.GetKeyDown(KeyCode.Space) && !_isClimbing)
+        if (!_isJumping && Input.GetKeyDown(KeyCode.Space) && !_isClimbing && !_isBouncing)
         {
             _body.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             _isJumping = true;
@@ -103,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //decrease gravity while in the air
-        if (!_isGrounded && !_isClimbing && _isJumping)
+        if (!_isGrounded && !_isClimbing && (_isJumping || _isBouncing))
         {
             Vector2 vel = _body.velocity;
             vel.y += fakeGravity * Time.deltaTime;
@@ -111,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //jump animation
-        if (!_isGrounded && !_isClimbing && _isJumping)
+        if (!_isGrounded && !_isClimbing && (_isJumping || _isBouncing))
         {
             _anim.SetBool("isJumping", true);
         }
@@ -150,6 +152,21 @@ public class PlayerMovement : MonoBehaviour
 
                 _isCappyJumping = true;                
                 _body.AddForce(Vector2.up * (jumpForce*cappyJumpMultiplier), ForceMode2D.Impulse);
+            }
+        }
+        #endregion
+
+        #region BounceBehavior
+        if (hit != null)
+        {
+            if (hit.GetComponent<BounceBehavior>() != null)
+            {
+                //before applying additional upward force, set velocity.y to 0, to make all bounces off BounceBehaviors are equal no matter where you are in jump arc
+                Vector2 currVel = _body.velocity;
+                currVel.y = 0;
+                _body.velocity = currVel;
+                _body.AddForce(Vector2.up * (jumpForce * hit.GetComponent<BounceBehavior>().BounceJumpMultiplier), ForceMode2D.Impulse);
+                _isBouncing = true;
             }
         }
         #endregion

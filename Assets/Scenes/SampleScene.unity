@@ -596,11 +596,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4542616224113278, guid: 075cd200dc05aab45b5cb19832244212, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -2.8513
+      value: -3.8
       objectReference: {fileID: 0}
     - target: {fileID: 4542616224113278, guid: 075cd200dc05aab45b5cb19832244212, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -3.9465
+      value: -5.6
       objectReference: {fileID: 0}
     - target: {fileID: 4542616224113278, guid: 075cd200dc05aab45b5cb19832244212, type: 2}
       propertyPath: m_LocalPosition.z
@@ -636,6 +636,11 @@ Prefab:
       propertyPath: m_FlipX
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 50887463345393392, guid: 075cd200dc05aab45b5cb19832244212,
+        type: 2}
+      propertyPath: m_GravityScale
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 075cd200dc05aab45b5cb19832244212, type: 2}
   m_IsPrefabAsset: 0
@@ -655,6 +660,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ecc3e9bd8f02c42aca861d105e648b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 155
 --- !u!114 &313702666
 MonoBehaviour:
   m_ObjectHideFlags: 0
