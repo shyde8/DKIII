@@ -92,6 +92,11 @@ public class CappyMovement : MonoBehaviour
         }    
     }
 
+    public bool IsReturning()
+    {
+        return _isReturnRunning;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject == _jumpMan)
