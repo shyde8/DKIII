@@ -34,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 150.0f;
     public float jumpForce = 5.7f;
     public float wallSlideSpeed = -1f;
+    public float wallJumpForce = 2.5f;
     public float cappyJumpMultiplier = 1.4f; //this is multiplied against the jumpForce variable
     public float fakeGravity = 27f;
     public LayerMask ladder = 8;
@@ -99,13 +100,13 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //jumping
-        bool _jumped = false;
+        bool _jumpedInFrame = false;
         if (!_isJumping && Input.GetKeyDown(KeyCode.Space) && !_isClimbing && !_isBouncing && !_isWallJumping)
         {
             _body.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             _isJumping = true;
             _isGrounded = false;
-            _jumped = true;
+            _jumpedInFrame = true;
         }
 
         //decrease gravity while in the air
@@ -148,12 +149,11 @@ public class PlayerMovement : MonoBehaviour
                 _body.velocity = tempVel;
             }
 
-            if (Input.GetKeyDown(KeyCode.Space) && _jumped == false)
+            if (Input.GetKeyDown(KeyCode.Space) && _jumpedInFrame == false)
             {
-                deltaX *= -1;
                 Vector2 currVel = _body.velocity;
                 currVel.y = 0;
-                currVel.x = deltaX;
+                currVel.x = wallJumpForce * (Mathf.Sign(transform.localScale.x)*-1);
                 _body.velocity = currVel;
                 _body.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             }
