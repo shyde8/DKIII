@@ -24,6 +24,7 @@ public class PlayerCharacter : MonoBehaviour
         {
             if (_cappy == null)
             {
+                gameObject.GetComponent<PlayerMovement>().CappyThrowBurst();
                 _cappy = Instantiate(cappyPrefab) as GameObject;
                 float cappyHeight = _cappy.GetComponent<Renderer>().bounds.size.y;
                 //scale is positive if jumpman is facing right, scale is negative if jumpman is facing left

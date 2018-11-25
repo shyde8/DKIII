@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _isCappyJumping = false;
     private bool _isBouncing = false;
     private bool _isWallJumping = false;
+    private int _framesSinceJump = 0;
 
     //public variables
     public float speed = 150.0f;
@@ -36,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     public float wallSlideSpeed = -1f;
     public float wallJumpForce = 2.5f;
     public float cappyJumpMultiplier = 1.4f; //this is multiplied against the jumpForce variable
+    public float cappyThrowBurstMultiplier = 3f;
     public float fakeGravity = 27f;
     public LayerMask ladder = 8;
     public LayerMask ground = 9;
@@ -91,8 +93,9 @@ public class PlayerMovement : MonoBehaviour
         _isGrounded = false;
 
         //player should only be "grounded" if the object below them is marked as ground layer (note: currently we're using a hard-coded value of 9 to check equality)
-        if (hit != null && hit.GetComponent<Collider2D>().gameObject.layer == 9)
-        {
+        //_framesSinceJump is an awful hack to avoid a scenario where jumpman immediately becomes Grounded after jumping
+        if (hit != null && hit.GetComponent<Collider2D>().gameObject.layer == 9 && _framesSinceJump>10)
+        {                         
             _isGrounded = true;
             _isJumping = false;
             _isCappyJumping = false;
@@ -103,18 +106,25 @@ public class PlayerMovement : MonoBehaviour
         bool _jumpedInFrame = false;
         if (!_isJumping && Input.GetKeyDown(KeyCode.Space) && !_isClimbing && !_isBouncing && !_isWallJumping)
         {
+            _framesSinceJump = 0;
+            //11-25 zero out y-velocity prior to jump?
+            Vector2 currVel = _body.velocity;
+            currVel.y = 0;
+            _body.velocity = currVel;
+
             _body.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             _isJumping = true;
             _isGrounded = false;
             _jumpedInFrame = true;
         }
+        _framesSinceJump++;
 
         //decrease gravity while in the air
         if (!_isGrounded && !_isClimbing && (_isJumping || _isBouncing || _isWallJumping))
-        {
+        {                    
             Vector2 vel = _body.velocity;
             vel.y += fakeGravity * Time.deltaTime;
-            _body.velocity = vel;
+            _body.velocity = vel;            
         }
 
         //jump animation
@@ -157,10 +167,11 @@ public class PlayerMovement : MonoBehaviour
                 _body.velocity = currVel;
                 _body.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             }
-        }       
+        }
 
         #endregion
 
+        #region Moving Platform
         //parent jumpman to object below him if it contains a MovingPlatform script, and perform counter-scaling if needed
         MovingPlatform platform = null;
         Vector3 pScale = Vector3.one;
@@ -177,6 +188,8 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.localScale = new Vector3((Mathf.Sign(deltaX) * _scaleX) / pScale.x, _scaleY / pScale.y, _scaleZ);
         }
+
+        #endregion
 
         #region Cappy Movement
         if (hit != null)
@@ -309,6 +322,17 @@ public class PlayerMovement : MonoBehaviour
                     transform.position = newPos;
                 }
             }            
+        }
+    }
+
+    public void CappyThrowBurst()
+    {
+        if (!_isGrounded && _isJumping)
+        {
+            Vector2 currVel = _body.velocity;
+            currVel.y = 0;
+            _body.velocity = currVel;
+            _body.AddForce(Vector2.up * cappyThrowBurstMultiplier, ForceMode2D.Impulse);
         }
     }
 }
