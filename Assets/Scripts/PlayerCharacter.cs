@@ -10,11 +10,13 @@ public class PlayerCharacter : MonoBehaviour
     private GameObject _cappy;
     private float _width;
     private float _height;
+    Scene activeScene;
 
     private void Start()
     {
         _width = gameObject.GetComponent<Renderer>().bounds.size.x;
         _height = gameObject.GetComponent<Renderer>().bounds.size.y;
+        activeScene = SceneManager.GetActiveScene();
     }
 
     private void Update()
@@ -35,7 +37,7 @@ public class PlayerCharacter : MonoBehaviour
                 Vector3 tempScale = _cappy.transform.localScale;
                 _cappy.transform.localScale = new Vector3(tempScale.x * dir, tempScale.y);             
             }
-        }                   
+        }               
     }
 
     
@@ -45,11 +47,11 @@ public class PlayerCharacter : MonoBehaviour
         ReactiveEnemy enemy = col.gameObject.GetComponent<ReactiveEnemy>();
         if (enemy != null)
         {
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene(activeScene.name);
         }
 
         //for now, we just reset the scene when player touches the bottom of the level
         if (string.Equals("Background", col.gameObject.name, System.StringComparison.OrdinalIgnoreCase))
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene(activeScene.name);
     }  
 }
