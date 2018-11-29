@@ -18,16 +18,17 @@ public class CappyMovement : MonoBehaviour
     private float _direction;
     private GameObject _jumpMan;
     private float _yOffset; //to be used in Return() coroutine, so Cappy targets the same height of jumpman he was released from
+    private bool _isHovering = false;
     private bool _isReturnRunning = false; //flag to indicate whether the the Return() coroutine has started
     private float _accumulatedTime = 0f;
     private float _returnSpeedMultiplier = 2f; //we want cappy to return to jumpman at faster than the speed at which he is initially thrown
 
     private void Start()
     {
+        _jumpMan = GameObject.Find("Jumpman");
         _startPos = transform.position;
         _direction = Mathf.Sign(transform.localScale.x);
-        _endPos = new Vector3(transform.position.x + (_direction * endPosOffset), transform.position.y);
-        _jumpMan = GameObject.Find("Jumpman");
+        _endPos = new Vector3(transform.position.x + (_direction * endPosOffset), transform.position.y);        
         _yOffset = _startPos.y - _jumpMan.transform.position.y;
         StartCoroutine(Throw());
     }
@@ -52,8 +53,8 @@ public class CappyMovement : MonoBehaviour
         }
 
         //cappy should always hover for a certain duration, before calling the Hover() coroutine
+        _isHovering = true;
         yield return new WaitForSeconds(1);
-
         StartCoroutine(Hover());
     }
 
@@ -69,6 +70,12 @@ public class CappyMovement : MonoBehaviour
             else
                 _accumulatedTime = 2f;
         }
+        _isHovering = false;
+
+        //we want to keep cappy locked in-place if jumpman is in the process of double-jumping
+        while(_jumpMan.GetComponent<PlayerMovement>().IsDoubleJumping() == true)
+            yield return new WaitForFixedUpdate();
+
         StartCoroutine(Return());
     }
 
@@ -90,6 +97,11 @@ public class CappyMovement : MonoBehaviour
 
             yield return new WaitForFixedUpdate();
         }    
+    }
+
+    public bool IsHovering()
+    {
+        return _isHovering;
     }
 
     public bool IsReturning()

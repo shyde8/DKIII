@@ -28,8 +28,10 @@ public class PlayerMovement : MonoBehaviour
     private bool _isClimbing = false;
     private bool _isCappyJumping = false;
     private bool _isBouncing = false;
+    private bool _isDoubleJumping = false;
     private bool _isWallJumping = false;
     private int _framesSinceJump = 0;
+    private GameObject _cappy;
 
     //public variables
     public float speed = 150.0f;
@@ -199,12 +201,28 @@ public class PlayerMovement : MonoBehaviour
                 //before applying additional upward force, set velocity.y to 0, to make all bounces off cappy equal no matter where you are in jump arc
                 Vector2 currVel = _body.velocity;
                 currVel.y = 0;
+                //11-28, hard-coding x-velocity on cappy jump to 2.6
+                float dir = Mathf.Sign(transform.localScale.x);
+                currVel.x = dir * 2.6f;
                 _body.velocity = currVel;
-
                 _isCappyJumping = true;                
                 _body.AddForce(Vector2.up * (jumpForce*cappyJumpMultiplier), ForceMode2D.Impulse);
             }
         }
+        #endregion
+
+        #region Double Jump
+        //https://gamedev.stackexchange.com/questions/157642/moving-a-2d-object-along-circular-arc-between-two-points
+        _cappy = GameObject.Find("Cappy(Clone)");
+        if (_cappy != null && _cappy.GetComponent<CappyMovement>() != null && _cappy.GetComponent<CappyMovement>().IsHovering() == true)
+        {
+            if (_isJumping && !_jumpedInFrame && !_isDoubleJumping && Input.GetKeyDown(KeyCode.Space))
+            {
+                _isDoubleJumping = true;
+                StartCoroutine(DoubleJump(gameObject, _cappy));
+            }
+        }
+
         #endregion
 
         #region BounceBehavior
@@ -214,7 +232,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 //before applying additional upward force, set velocity.y to 0, to make all bounces off BounceBehaviors are equal no matter where you are in jump arc
                 Vector2 currVel = _body.velocity;
-                currVel.y = 0;
+                currVel.y = 0;                
                 _body.velocity = currVel;
                 _body.AddForce(Vector2.up * (jumpForce * hit.GetComponent<BounceBehavior>().BounceJumpMultiplier), ForceMode2D.Impulse);
                 _isBouncing = true;
@@ -283,7 +301,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _body.gravityScale = _defGravityScale;
         }
-        
+
         #endregion
     }
 
@@ -334,5 +352,29 @@ public class PlayerMovement : MonoBehaviour
             _body.velocity = currVel;
             _body.AddForce(Vector2.up * cappyThrowBurstMultiplier, ForceMode2D.Impulse);
         }
+    }
+
+
+    private IEnumerator DoubleJump(GameObject _jumpMan, GameObject _cappy)
+    {
+        Vector2 start = _jumpMan.transform.position;
+        Vector2 end = new Vector2(_cappy.transform.position.x, _cappy.GetComponent<BoxCollider2D>().bounds.max.y + 0.3f); //_cappy.transform.position; //end-position should be the top-center of cappy
+        Vector2 mid = new Vector2();
+        mid = start + ((end - start) / 2) + Vector2.up * 1.0f;
+        float count = 0.0f;
+        while(count < 1.0f)
+        {
+            count += 2.0f * Time.deltaTime;
+            Vector2 m1 = Vector2.Lerp(start, mid, count);
+            Vector2 m2 = Vector2.Lerp(mid, end, count);
+            gameObject.transform.position = Vector2.Lerp(m1, m2, count);
+            yield return new WaitForFixedUpdate();
+        }        
+        _isDoubleJumping = false;
+    }
+
+    public bool IsDoubleJumping()
+    {
+        return _isDoubleJumping;
     }
 }
