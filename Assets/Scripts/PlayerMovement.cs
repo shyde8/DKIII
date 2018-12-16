@@ -291,7 +291,10 @@ public class PlayerMovement : MonoBehaviour
             //11-16-2018, subtracted .04f from y-position of startPos, since there were instances where the raycast was still detecting the ladder            
             Vector2 startPos = new Vector2(transform.position.x, _box.bounds.min.y - .05f);
             RaycastHit2D platformHit = Physics2D.Raycast(startPos, Vector2.down, PLATFORM_THICKNESS, 1 << LayerMask.NameToLayer("Ladder"));
-            if (_isGrounded && platformHit.collider == null)
+            //12-16-2018, if climbing downward, then exit climbing mode as soon as not touching a ladder
+            Vector2 topMid = new Vector2(transform.position.x, _box.bounds.max.y - .1f);
+            RaycastHit2D detectAbove = Physics2D.Raycast(topMid, Vector2.up, .01f, 1 << LayerMask.NameToLayer("Ladder"));
+            if ((_isGrounded && platformHit.collider == null) || (platformHit.collider == null && detectAbove.collider == null))
             {
                 _isClimbing = false;
             }

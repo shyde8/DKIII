@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 212276857056180588}
   - component: {fileID: 50887463345393392}
   - component: {fileID: 61699027205927638}
+  - component: {fileID: 114890134707673992}
+  - component: {fileID: 114042765366248124}
   m_Layer: 0
   m_Name: Flame
   m_TagString: Untagged
@@ -36,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1846090525330258}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.8513, y: -3.9465, z: 0}
+  m_LocalPosition: {x: 1.6272213, y: -5.618245, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -87,6 +89,29 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.1298508, y: 0.12916663}
   m_EdgeRadius: 0
+--- !u!114 &114042765366248124
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1846090525330258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a8ed09d2ea0fbf4898cd210298fa3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114890134707673992
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1846090525330258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37ecc3e9bd8f02c42aca861d105e648b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 155
 --- !u!212 &212276857056180588
 SpriteRenderer:
   m_ObjectHideFlags: 1
