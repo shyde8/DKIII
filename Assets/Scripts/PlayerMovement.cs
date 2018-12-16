@@ -89,8 +89,8 @@ public class PlayerMovement : MonoBehaviour
         //check-if grounded
         Vector3 max = _box.bounds.max;
         Vector3 min = _box.bounds.min;
-        Vector2 corner1 = new Vector2(max.x, min.y - .06f);
-        Vector2 corner2 = new Vector2(min.x, min.y - .06f);
+        Vector2 corner1 = new Vector2(max.x, min.y - .065f);
+        Vector2 corner2 = new Vector2(min.x, min.y - .065f);
         Collider2D hit = Physics2D.OverlapArea(corner1, corner2);
         _isGrounded = false;
 
@@ -243,7 +243,8 @@ public class PlayerMovement : MonoBehaviour
         #region Ladder Movement
         RaycastHit2D ladderUp = Physics2D.Raycast(transform.position, Vector2.up, ladderDetectionDistance, 1 << LayerMask.NameToLayer("Ladder"));
         RaycastHit2D ladderDown = Physics2D.Raycast(transform.position, Vector2.down, ladderDetectionDistance + 1f, 1 << LayerMask.NameToLayer("Ladder"));
-        if (ladderUp.collider != null && Input.GetKey(KeyCode.UpArrow) && _isGrounded)
+        //12-16-2018, removed grounded check so you can jump into ladder
+        if (ladderUp.collider != null && Input.GetKey(KeyCode.UpArrow)/* && _isGrounded*/)
         {
             _isClimbing = true;
             _body.gravityScale = 0; //gravity should not apply to jumpman while climbing                
@@ -257,7 +258,7 @@ public class PlayerMovement : MonoBehaviour
                 _isGrounded = false; //11-17-2018, added hard-coding of _isGrounded to false once you enter climbing mode
             }                
         }
-        else if (ladderDown.collider != null && Input.GetKey(KeyCode.DownArrow) && _isGrounded)
+        else if (ladderDown.collider != null && Input.GetKey(KeyCode.DownArrow)/* && _isGrounded*/)
         {          
             _isClimbing = true;
             _body.gravityScale = 0; //gravity should not apply to jumpman while climbing                
