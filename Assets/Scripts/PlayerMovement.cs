@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     public float cappyJumpMultiplier = 1.4f; //this is multiplied against the jumpForce variable
     public float cappyThrowBurstMultiplier = 3f;
     public float fakeGravity = 27f;
+    public bool enableDoubleJump = false;
     public LayerMask ladder = 8;
     public LayerMask ground = 9;
     public float ladderDetectionDistance = 1f;
@@ -214,7 +215,7 @@ public class PlayerMovement : MonoBehaviour
         #region Double Jump
         //https://gamedev.stackexchange.com/questions/157642/moving-a-2d-object-along-circular-arc-between-two-points
         _cappy = GameObject.Find("Cappy(Clone)");
-        if (_cappy != null && _cappy.GetComponent<CappyMovement>() != null && _cappy.GetComponent<CappyMovement>().IsHovering() == true)
+        if (_cappy != null && _cappy.GetComponent<CappyMovement>() != null && _cappy.GetComponent<CappyMovement>().IsHovering() == true && enableDoubleJump)
         {
             if (_isJumping && !_jumpedInFrame && !_isDoubleJumping && Input.GetKeyDown(KeyCode.Space))
             {
