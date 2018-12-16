@@ -10,7 +10,7 @@ public class CappyMovement : MonoBehaviour
      */
 
     public float SPIN_MULTIPLIER = 1000f;    
-    private float endPosOffset = 1.25f;
+    private float endPosOffset = 1.00f;
     private float speed = 5f;
     private Vector3 _startPos;
     private Vector3 _endPos;
