@@ -97,7 +97,8 @@ public class PlayerMovement : MonoBehaviour
 
         //player should only be "grounded" if the object below them is marked as ground layer (note: currently we're using a hard-coded value of 9 to check equality)
         //_framesSinceJump is an awful hack to avoid a scenario where jumpman immediately becomes Grounded after jumping
-        if (hit != null && hit.GetComponent<Collider2D>().gameObject.layer == 9 && _framesSinceJump>10)
+        //12-23, you should only be considered grounded if your vertical velocity is close to 0
+        if (hit != null && hit.GetComponent<Collider2D>().gameObject.layer == 9 && _framesSinceJump>10 && (Mathf.Abs(_body.velocity.y)<.05))
         {                         
             _isGrounded = true;
             _isJumping = false;
@@ -381,5 +382,10 @@ public class PlayerMovement : MonoBehaviour
     public bool IsDoubleJumping()
     {
         return _isDoubleJumping;
+    }
+
+    public bool IsWallJumping()
+    {
+        return _isWallJumping;
     }
 }

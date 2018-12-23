@@ -10,6 +10,8 @@ public class PoleBehavior : MonoBehaviour
     private float _accumulatedTime;
     private float _maxAccumulatedTime = 1f;
 
+    public bool genLeft = true;
+
     [SerializeField]
     private float _launchForce = 5f;
 
@@ -31,7 +33,20 @@ public class PoleBehavior : MonoBehaviour
 
             //calculate new position of jumpman, from which he'll launch from the pole
             Vector2 min = gameObject.GetComponent<BoxCollider2D>().bounds.min;
-            Vector2 newPos = new Vector2(min.x - (_jumpManWidth/2), min.y + (_jumpManHeight/2));
+            Vector2 max = gameObject.GetComponent<BoxCollider2D>().bounds.max;
+            float factor;
+            float newX;
+            if (genLeft)
+            {
+                newX = min.x;
+                factor = -1;
+            }                
+            else
+            {
+                newX = max.x;
+                factor = 1;
+            }                
+            Vector2 newPos = new Vector2(newX + factor*(_jumpManWidth/2), min.y + (_jumpManHeight/2));
             StartCoroutine(Launch(newPos));                   
         }
     }

@@ -31,6 +31,9 @@ public class PlayerCharacter : MonoBehaviour
                 float cappyHeight = _cappy.GetComponent<Renderer>().bounds.size.y;
                 //scale is positive if jumpman is facing right, scale is negative if jumpman is facing left
                 float dir = Mathf.Sign(transform.localScale.x);
+                //12-23, if Jumpman is wall-jumping, then multiple dir by -1, so cappy is thrown in direction opposite of wall
+                if (gameObject.GetComponent<PlayerMovement>().IsWallJumping() == true)
+                    dir *= -1;
                 Vector2 newPos = new Vector2(transform.position.x + (dir * (_width/1.5f)), transform.position.y + (_height/2) - (cappyHeight/2));
                 _cappy.transform.position = newPos;
                 //set scale of cappy to negative, if he was generated to the left of jumpman
