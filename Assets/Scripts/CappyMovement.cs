@@ -121,8 +121,12 @@ public class CappyMovement : MonoBehaviour
         {
             _trackPercent = .99f;
             transform.position = collision.gameObject.transform.position;
-        }
-            
+        }            
+    }
+
+    public void StartReturning()
+    {
+        _accumulatedTime = 2f;
     }
 
 }

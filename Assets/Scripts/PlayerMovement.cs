@@ -209,6 +209,7 @@ public class PlayerMovement : MonoBehaviour
                 _body.velocity = currVel;
                 _isCappyJumping = true;                
                 _body.AddForce(Vector2.up * (jumpForce*cappyJumpMultiplier), ForceMode2D.Impulse);
+                hit.GetComponent<CappyMovement>().StartReturning();
             }
         }
         #endregion
