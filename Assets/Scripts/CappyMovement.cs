@@ -116,6 +116,13 @@ public class CappyMovement : MonoBehaviour
             if (_isReturnRunning)
                 Destroy(this.gameObject);
         }
+        //set track-percent to .99f if encounter a lever
+        if (collision.gameObject.name.Contains("Lever"))
+        {
+            _trackPercent = .99f;
+            transform.position = collision.gameObject.transform.position;
+        }
+            
     }
 
 }
