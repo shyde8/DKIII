@@ -35,6 +35,9 @@ public class PlayerMovement : MonoBehaviour
     private GameObject _cappy;
     private int _framesSinceClimbSwap = 0;
     private int _climbFrameSwitchThreshold = 20;
+    private int _currentWalkClip = 0;
+    private int _framesSinceWalkClipSwap;
+    private int _walkFrameSwitchThreshold = 20;
 
     //public variables
     public float speed = 150.0f;
@@ -55,7 +58,21 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private AudioClip jumpSound;
     [SerializeField]
-    private AudioClip walkSound;
+    private AudioClip walk_1;
+    [SerializeField]
+    private AudioClip walk_2;
+    [SerializeField]
+    private AudioClip walk_3;
+    [SerializeField]
+    private AudioClip walk_4;
+    [SerializeField]
+    private AudioClip walk_5;
+    [SerializeField]
+    private AudioClip walk_6;
+    [SerializeField]
+    private AudioClip walk_7;
+    private AudioClip[] walkClips;
+
 
     // Use this for initialization
     void Start()
@@ -73,6 +90,8 @@ public class PlayerMovement : MonoBehaviour
 
         //grab default gravity scale
         _defGravityScale = _body.gravityScale;
+
+        walkClips = new AudioClip[] {walk_1, walk_2, walk_3, walk_4, walk_5, walk_6, walk_7 };
     }
 
     // Update is called once per frame
@@ -87,6 +106,17 @@ public class PlayerMovement : MonoBehaviour
         {
             _body.velocity = movement;
             _anim.SetBool("isHorKeyDown", true);
+
+            //walking sound clip
+            _framesSinceWalkClipSwap++;
+            if(_framesSinceWalkClipSwap >= _walkFrameSwitchThreshold)
+            {
+                _audio.PlayOneShot(walkClips[_currentWalkClip]);
+                _currentWalkClip++;
+                if (_currentWalkClip == 7)
+                    _currentWalkClip = 0;
+                _framesSinceWalkClipSwap = 0;
+            }
         }
         else if (_isGrounded && !_isClimbing)
         {

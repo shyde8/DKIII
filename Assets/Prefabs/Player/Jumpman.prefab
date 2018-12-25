@@ -245,7 +245,13 @@ MonoBehaviour:
   ladderDetectionDistance: 0.25
   climbSpeed: 0.75
   jumpSound: {fileID: 8300000, guid: 363a2311d126e334e9eb59d5aa3b0fdf, type: 3}
-  walkSound: {fileID: 8300000, guid: 6a9c8db86b16a9846811c999b08856d2, type: 3}
+  walk_1: {fileID: 8300000, guid: 088a8514560445241a647cb7a05d567e, type: 3}
+  walk_2: {fileID: 8300000, guid: e6f22fbee1ed37d4889eefb509f2ad4e, type: 3}
+  walk_3: {fileID: 8300000, guid: c503b938f812c1247bbdd3a93ce13929, type: 3}
+  walk_4: {fileID: 8300000, guid: 98bfb9841b994064b9a83dec9814d1ea, type: 3}
+  walk_5: {fileID: 8300000, guid: ed19057eb65551945b68727538b6c2b4, type: 3}
+  walk_6: {fileID: 8300000, guid: e05ebcd8a3e6d744c97a2bb7033f3a71, type: 3}
+  walk_7: {fileID: 8300000, guid: 7fa72c4cdde974743a3457ab8e4a4b83, type: 3}
 --- !u!212 &212660700104216194
 SpriteRenderer:
   m_ObjectHideFlags: 1
