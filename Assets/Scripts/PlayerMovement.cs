@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _body;
     private Animator _anim;
     private BoxCollider2D _box;
+    private AudioSource _audio;
 
     //private variables
     private float _scaleX;
@@ -50,6 +51,12 @@ public class PlayerMovement : MonoBehaviour
     public float climbSpeed = 5f;
     public const float PLATFORM_THICKNESS = 0.4f;
 
+    //sound clips
+    [SerializeField]
+    private AudioClip jumpSound;
+    [SerializeField]
+    private AudioClip walkSound;
+
     // Use this for initialization
     void Start()
     {
@@ -57,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
         _body = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
         _box = GetComponent<BoxCollider2D>();
+        _audio = GetComponent<AudioSource>();
 
         //set local scales
         _scaleX = transform.localScale.x;
@@ -122,6 +130,8 @@ public class PlayerMovement : MonoBehaviour
             _isJumping = true;
             _isGrounded = false;
             _jumpedInFrame = true;
+            _audio.time = 10f;
+            _audio.PlayOneShot(jumpSound);
         }
         _framesSinceJump++;
 
@@ -172,6 +182,7 @@ public class PlayerMovement : MonoBehaviour
                 currVel.x = wallJumpForce * (Mathf.Sign(transform.localScale.x)*-1);
                 _body.velocity = currVel;
                 _body.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                _audio.PlayOneShot(jumpSound);                
             }
         }
 
