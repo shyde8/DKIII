@@ -7,6 +7,7 @@ TextureImporter:
     21300004: Arcade - Donkey Kong - 75 M100 M_2
     21300006: Arcade - Donkey Kong - 75 M100 M_3
     21300008: Arcade - Donkey Kong - 75 M100 M_4
+    21300010: Jumpman_0
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -387,6 +388,56 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 18788f7a30ff2bf45a29f49febd940ac
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumpman_0
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 424
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -2.5, y: -8}
+        - {x: -2.5, y: -6}
+        - {x: -1.5, y: -6}
+        - {x: -1.5, y: -5}
+        - {x: -5.5, y: -5}
+        - {x: -5.5, y: -3}
+        - {x: -6.5, y: -3}
+        - {x: -6.5, y: -1}
+        - {x: -5.5, y: -1}
+        - {x: -5.5, y: 2}
+        - {x: -6.5, y: 2}
+        - {x: -6.5, y: 5}
+        - {x: -5.5, y: 5}
+        - {x: -5.5, y: 8}
+        - {x: -3.5, y: 8}
+        - {x: -3.5, y: 7}
+        - {x: 2.5, y: 7}
+        - {x: 2.5, y: 5}
+        - {x: 3.5, y: 5}
+        - {x: 3.5, y: 3}
+        - {x: 5.5, y: 3}
+        - {x: 5.5, y: 2}
+        - {x: 6.5, y: 2}
+        - {x: 6.5, y: 0}
+        - {x: 4.5, y: 0}
+        - {x: 4.5, y: -4}
+        - {x: 3.5, y: -4}
+        - {x: 3.5, y: -7}
+        - {x: 2.5, y: -7}
+        - {x: 2.5, y: -8}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 994d6f23862590c4d87ac414312eab97
       vertices: []
       indices: 
       edges: []

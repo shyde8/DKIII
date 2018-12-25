@@ -3921,7 +3921,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4966865610412594, guid: a45e47c320d419e469b1ae7d4483d22c, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2.82
+      value: 4.69
       objectReference: {fileID: 0}
     - target: {fileID: 4966865610412594, guid: a45e47c320d419e469b1ae7d4483d22c, type: 2}
       propertyPath: m_LocalPosition.y
@@ -4113,6 +4113,14 @@ Prefab:
     - target: {fileID: 1191873736019310, guid: 40d9366845b663d4fad8d789be60d061, type: 2}
       propertyPath: m_Name
       value: Moon
+      objectReference: {fileID: 0}
+    - target: {fileID: 4111967725655726, guid: 40d9366845b663d4fad8d789be60d061, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4111967725655726, guid: 40d9366845b663d4fad8d789be60d061, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40d9366845b663d4fad8d789be60d061, type: 2}

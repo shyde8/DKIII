@@ -32,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
     private bool _isWallJumping = false;
     private int _framesSinceJump = 0;
     private GameObject _cappy;
+    private int _framesSinceClimbSwap = 0;
+    private int _climbFrameSwitchThreshold = 20;
 
     //public variables
     public float speed = 150.0f;
@@ -250,6 +252,7 @@ public class PlayerMovement : MonoBehaviour
         if (ladderUp.collider != null && Input.GetKey(KeyCode.UpArrow)/* && _isGrounded*/)
         {
             _isClimbing = true;
+            _anim.SetBool("isClimbing", true);
             _body.gravityScale = 0; //gravity should not apply to jumpman while climbing                
                                     //set x position to that of the ladder, to "lock" the player into it
             Vector2 newPos = new Vector2(ladderUp.transform.position.x, transform.position.y);
@@ -264,6 +267,7 @@ public class PlayerMovement : MonoBehaviour
         else if (ladderDown.collider != null && Input.GetKey(KeyCode.DownArrow)/* && _isGrounded*/)
         {          
             _isClimbing = true;
+            _anim.SetBool("isClimbing", true);
             _body.gravityScale = 0; //gravity should not apply to jumpman while climbing                
                                     //set x position to that of the ladder, to "lock" the player into it
             Vector2 newPos = new Vector2(ladderDown.transform.position.x, transform.position.y);
@@ -286,10 +290,18 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKey(KeyCode.UpArrow))
             {
                 _body.AddForce(Vector2.up * climbSpeed, ForceMode2D.Impulse);
+                _framesSinceClimbSwap++;
             }
             else if (Input.GetKey(KeyCode.DownArrow))
             {
                 _body.AddForce(Vector2.down * climbSpeed, ForceMode2D.Impulse);
+                _framesSinceClimbSwap++;
+            }
+
+            if(_framesSinceClimbSwap >= _climbFrameSwitchThreshold)
+            {
+                _framesSinceClimbSwap = 0;
+                gameObject.GetComponent<SpriteRenderer>().flipX = !gameObject.GetComponent<SpriteRenderer>().flipX;
             }
             //exit climbing mode if touching the ground, and if a downward raycast from bottom of jumpman offset by platform thickness is not touching a ladder
             //11-16-2018, subtracted .04f from y-position of startPos, since there were instances where the raycast was still detecting the ladder            
@@ -301,6 +313,9 @@ public class PlayerMovement : MonoBehaviour
             if ((_isGrounded && platformHit.collider == null) || (platformHit.collider == null && detectAbove.collider == null))
             {
                 _isClimbing = false;
+                _anim.SetBool("isClimbing", false);
+                //default state is that sprite is not flipped... which seems like we achieve by setting flipX to true?
+                gameObject.GetComponent<SpriteRenderer>().flipX = true;
             }
         }
 
