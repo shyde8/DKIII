@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
     private int _climbFrameSwitchThreshold = 20;
     private int _currentWalkClip = 0;
     private int _framesSinceWalkClipSwap;
-    private int _walkFrameSwitchThreshold = 20;
+    private int _walkFrameSwitchThreshold = 13;
 
     //public variables
     public float speed = 150.0f;
