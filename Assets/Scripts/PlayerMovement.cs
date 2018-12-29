@@ -34,10 +34,10 @@ public class PlayerMovement : MonoBehaviour
     private int _framesSinceJump = 0;
     private GameObject _cappy;
     private int _framesSinceClimbSwap = 0;
-    private int _climbFrameSwitchThreshold = 20;
+    private int _climbFrameSwitchThreshold = 15;
     private int _currentWalkClip = 0;
     private int _framesSinceWalkClipSwap;
-    private int _walkFrameSwitchThreshold = 13;
+    private int _walkFrameSwitchThreshold = 11;
 
     //public variables
     public float speed = 150.0f;
@@ -71,6 +71,10 @@ public class PlayerMovement : MonoBehaviour
     private AudioClip walk_6;
     [SerializeField]
     private AudioClip walk_7;
+    [SerializeField]
+    private AudioClip cappyJumpSound;
+    [SerializeField]
+    private AudioClip _climbSound;
     private AudioClip[] walkClips;
 
 
@@ -253,6 +257,7 @@ public class PlayerMovement : MonoBehaviour
                 _isCappyJumping = true;                
                 _body.AddForce(Vector2.up * (jumpForce*cappyJumpMultiplier), ForceMode2D.Impulse);
                 hit.GetComponent<CappyMovement>().StartReturning();
+                _audio.PlayOneShot(cappyJumpSound,.25f);
             }
         }
         #endregion
@@ -343,6 +348,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 _framesSinceClimbSwap = 0;
                 gameObject.GetComponent<SpriteRenderer>().flipX = !gameObject.GetComponent<SpriteRenderer>().flipX;
+                _audio.PlayOneShot(_climbSound);
             }
             //exit climbing mode if touching the ground, and if a downward raycast from bottom of jumpman offset by platform thickness is not touching a ladder
             //11-16-2018, subtracted .04f from y-position of startPos, since there were instances where the raycast was still detecting the ladder            

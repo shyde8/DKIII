@@ -9,9 +9,10 @@ public class CappyMovement : MonoBehaviour
      * there should be a cooldown time after cappy returns to jumpman, during which he cannot be thrown
      */
 
+    private AudioSource _audio;
     public float SPIN_MULTIPLIER = 1000f;    
     private float endPosOffset = 1.00f;
-    private float speed = 5f;
+    private float speed = 10f;
     private Vector3 _startPos;
     private Vector3 _endPos;
     private float _trackPercent = 0;
@@ -25,6 +26,7 @@ public class CappyMovement : MonoBehaviour
 
     private void Start()
     {
+        _audio = GetComponent<AudioSource>();
         _jumpMan = GameObject.Find("Jumpman");
         _startPos = transform.position;
         _direction = Mathf.Sign(transform.localScale.x);
