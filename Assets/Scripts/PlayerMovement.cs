@@ -106,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
         float deltaX = 0;
         deltaX = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
         Vector2 movement = new Vector2(deltaX, _body.velocity.y);
-        if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)) && (_isGrounded || _isBouncing) && !_isClimbing)
+        if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)) && (_isGrounded || (_isBouncing && !_isWallJumping)) && !_isClimbing)
         {
             _body.velocity = movement;
             _anim.SetBool("isHorKeyDown", true);
@@ -202,7 +202,9 @@ public class PlayerMovement : MonoBehaviour
             _isWallJumping = false;
 
         if (_isWallJumping)
-        {            
+        {
+            _isBouncing = false;
+            _isJumping = true;            
             if (_body.velocity.y < wallSlideSpeed)
             {
                 Vector2 tempVel = new Vector2(_body.velocity.x, wallSlideSpeed);

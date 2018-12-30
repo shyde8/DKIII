@@ -8,9 +8,9 @@ public class ElectricPoleController : MonoBehaviour
     private GameObject _spark;
     private List<GameObject> _sparkList;
     [SerializeField]
-    public GameObject _startMarker;
+    private GameObject _startMarker;
     [SerializeField]
-    public GameObject _endMarker;
+    private GameObject _endMarker;
     private bool _shouldGenerate = true;
     public float sparkGenSpeed = 4f;
 	// Use this for initialization
@@ -30,7 +30,8 @@ public class ElectricPoleController : MonoBehaviour
     {
         _shouldGenerate = false;
         GameObject _newSpark = Instantiate(_spark) as GameObject;
-        _newSpark.transform.position = _startMarker.transform.position;
+        _newSpark.GetComponent<SparkBehavior>()._EndPos = _endMarker.transform.position;
+        _newSpark.transform.position = _startMarker.transform.position;        
         _sparkList.Add(_newSpark);
         for (int i = 0; i < sparkGenSpeed; i++)
         {            

@@ -5,9 +5,9 @@ using UnityEngine;
 public class SparkBehavior : MonoBehaviour
 {
     private Vector3 _StartPos;
-    private Vector3 _EndPos;
-    [SerializeField]
-    private GameObject _pole;
+    public Vector3 _EndPos;
+    //[SerializeField]
+    //private GameObject _pole;
     [SerializeField]
     private float _speed = .5f;
     private float _trackPercent = 0f;
@@ -16,7 +16,7 @@ public class SparkBehavior : MonoBehaviour
     void Start ()
     {
         _StartPos = transform.position;
-        _EndPos = _pole.GetComponent<ElectricPoleController>()._endMarker.transform.position;
+        //_EndPos = _pole.GetComponent<ElectricPoleController>()._endMarker.transform.position;
 	}
 	
 	// Update is called once per frame
