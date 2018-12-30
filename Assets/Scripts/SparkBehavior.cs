@@ -6,6 +6,7 @@ public class SparkBehavior : MonoBehaviour
 {
     private Vector3 _StartPos;
     private Vector3 _EndPos;
+    [SerializeField]
     private GameObject _pole;
     [SerializeField]
     private float _speed = .5f;
@@ -15,7 +16,6 @@ public class SparkBehavior : MonoBehaviour
     void Start ()
     {
         _StartPos = transform.position;
-        _pole = GameObject.Find("ElectricPole");
         _EndPos = _pole.GetComponent<ElectricPoleController>()._endMarker.transform.position;
 	}
 	

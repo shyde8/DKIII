@@ -245,7 +245,7 @@ public class PlayerMovement : MonoBehaviour
         #region Cappy Movement
         if (hit != null)
         {            
-            if (hit.GetComponent<CappyMovement>() != null && !_isCappyJumping)
+            if (hit.GetComponent<CappyMovement>() != null && hit.GetComponent<CappyMovement>().IsHovering())
             {
                 //before applying additional upward force, set velocity.y to 0, to make all bounces off cappy equal no matter where you are in jump arc
                 Vector2 currVel = _body.velocity;
@@ -254,7 +254,7 @@ public class PlayerMovement : MonoBehaviour
                 float dir = Mathf.Sign(transform.localScale.x);
                 currVel.x = dir * 2.6f;
                 _body.velocity = currVel;
-                _isCappyJumping = true;                
+                //_isCappyJumping = true;                
                 _body.AddForce(Vector2.up * (jumpForce*cappyJumpMultiplier), ForceMode2D.Impulse);
                 hit.GetComponent<CappyMovement>().StartReturning();
                 _audio.PlayOneShot(cappyJumpSound,.25f);
