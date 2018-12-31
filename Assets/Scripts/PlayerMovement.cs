@@ -113,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
 
             //walking sound clip
             _framesSinceWalkClipSwap++;
-            if(_framesSinceWalkClipSwap >= _walkFrameSwitchThreshold)
+            if(_framesSinceWalkClipSwap >= _walkFrameSwitchThreshold && !_isBouncing)
             {
                 _audio.PlayOneShot(walkClips[_currentWalkClip]);
                 _currentWalkClip++;
@@ -289,6 +289,7 @@ public class PlayerMovement : MonoBehaviour
                 _body.velocity = currVel;
                 _body.AddForce(Vector2.up * (jumpForce * hit.GetComponent<BounceBehavior>().BounceJumpMultiplier), ForceMode2D.Impulse);
                 _isBouncing = true;
+                _audio.PlayOneShot(jumpSound);
             }
         }
         #endregion
