@@ -38,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
     private int _currentWalkClip = 0;
     private int _framesSinceWalkClipSwap;
     private int _walkFrameSwitchThreshold = 11;
+    public float pubDeltaX;
+    public bool pubIsGrounded;
 
     //public variables
     public float speed = 150.0f;
@@ -105,6 +107,7 @@ public class PlayerMovement : MonoBehaviour
         //only apply movement if either left or right arrow are down, to avoid "floaty" behavior
         float deltaX = 0;
         deltaX = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+        pubDeltaX = deltaX;
         Vector2 movement = new Vector2(deltaX, _body.velocity.y);
         if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)) && (_isGrounded || (_isBouncing && !_isWallJumping)) && !_isClimbing)
         {
