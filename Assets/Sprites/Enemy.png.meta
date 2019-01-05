@@ -4,6 +4,12 @@ TextureImporter:
   fileIDToRecycleName:
     21300000: Enemy_0
     21300002: Enemy_1
+    21300004: Enemy_2
+    21300006: Enemy_3
+    21300008: Enemy_4
+    21300010: Enemy_5
+    21300012: Enemy_6
+    21300014: Enemy_7
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -177,6 +183,280 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: de671c87054eb9f4aac9d5f9e40ef10b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_2
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 315
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -2, y: -5}
+        - {x: -2, y: -4}
+        - {x: -3, y: -4}
+        - {x: -4, y: -4}
+        - {x: -4, y: -3}
+        - {x: -5, y: -3}
+        - {x: -5, y: -2}
+        - {x: -6, y: -2}
+        - {x: -6, y: 2}
+        - {x: -5, y: 2}
+        - {x: -5, y: 3}
+        - {x: -4, y: 3}
+        - {x: -4, y: 4}
+        - {x: -2, y: 4}
+        - {x: -2, y: 5}
+        - {x: 2, y: 5}
+        - {x: 2, y: 4}
+        - {x: 4, y: 4}
+        - {x: 4, y: 3}
+        - {x: 5, y: 3}
+        - {x: 5, y: 2}
+        - {x: 6, y: 2}
+        - {x: 6, y: -2}
+        - {x: 5, y: -2}
+        - {x: 5, y: -3}
+        - {x: 4, y: -3}
+        - {x: 4, y: -4}
+        - {x: 2, y: -4}
+        - {x: 2, y: -5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db6d4d754ddc78d4abe26109fbd39bb6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_3
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 315
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 7, y: -3}
+        - {x: 7, y: -4}
+        - {x: 5, y: -4}
+        - {x: 5, y: -5}
+        - {x: -5, y: -5}
+        - {x: -5, y: -4}
+        - {x: -7, y: -4}
+        - {x: -7, y: -3}
+        - {x: -8, y: -3}
+        - {x: -8, y: 3}
+        - {x: -7, y: 3}
+        - {x: -7, y: 4}
+        - {x: -5, y: 4}
+        - {x: -5, y: 5}
+        - {x: -1, y: 5}
+        - {x: 5, y: 5}
+        - {x: 5, y: 4}
+        - {x: 7, y: 4}
+        - {x: 7, y: 3}
+        - {x: 8, y: 3}
+        - {x: 8, y: -3}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1eadbe45ff4847748b2a1fe376d9bd80
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_4
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 314
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 5, y: -1.5}
+        - {x: 5, y: -2.5}
+        - {x: 4, y: -2.5}
+        - {x: 4, y: -3.5}
+        - {x: 2, y: -3.5}
+        - {x: 2, y: -4.5}
+        - {x: -2, y: -4.5}
+        - {x: -2, y: -3.5}
+        - {x: -4, y: -3.5}
+        - {x: -4, y: -2.5}
+        - {x: -5, y: -2.5}
+        - {x: -5, y: -1.5}
+        - {x: -6, y: -1.5}
+        - {x: -6, y: 2.5}
+        - {x: -5, y: 2.5}
+        - {x: -5, y: 3.5}
+        - {x: -4, y: 3.5}
+        - {x: -4, y: 4.5}
+        - {x: -2, y: 4.5}
+        - {x: -2, y: 5.5}
+        - {x: 2, y: 5.5}
+        - {x: 2, y: 4.5}
+        - {x: 4, y: 4.5}
+        - {x: 4, y: 3.5}
+        - {x: 5, y: 3.5}
+        - {x: 5, y: 2.5}
+        - {x: 6, y: 2.5}
+        - {x: 6, y: -1.5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4704fd9991bf1e447828871082d0c973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_5
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 315
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -2, y: -4}
+        - {x: -4, y: -4}
+        - {x: -4, y: -3}
+        - {x: -5, y: -3}
+        - {x: -5, y: -2}
+        - {x: -6, y: -2}
+        - {x: -6, y: 2}
+        - {x: -5, y: 2}
+        - {x: -5, y: 3}
+        - {x: -4, y: 3}
+        - {x: -4, y: 4}
+        - {x: -2, y: 4}
+        - {x: -2, y: 5}
+        - {x: 2, y: 5}
+        - {x: 2, y: 4}
+        - {x: 4, y: 4}
+        - {x: 4, y: 3}
+        - {x: 5, y: 3}
+        - {x: 5, y: 2}
+        - {x: 6, y: 2}
+        - {x: 6, y: -2}
+        - {x: 5, y: -2}
+        - {x: 5, y: -3}
+        - {x: 4, y: -3}
+        - {x: 4, y: -4}
+        - {x: 2, y: -4}
+        - {x: 2, y: -5}
+        - {x: -2, y: -5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9017158c32599f48b0913821a20f8b4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_6
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 315
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 5, y: -3}
+        - {x: 4, y: -3}
+        - {x: 4, y: -4}
+        - {x: 2, y: -4}
+        - {x: 2, y: -5}
+        - {x: -2, y: -5}
+        - {x: -2, y: -4}
+        - {x: -4, y: -4}
+        - {x: -4, y: -3}
+        - {x: -5, y: -3}
+        - {x: -5, y: -2}
+        - {x: -6, y: -2}
+        - {x: -6, y: 2}
+        - {x: -5, y: 2}
+        - {x: -5, y: 3}
+        - {x: -4, y: 3}
+        - {x: -4, y: 4}
+        - {x: -2, y: 4}
+        - {x: -2, y: 5}
+        - {x: 2, y: 5}
+        - {x: 2, y: 4}
+        - {x: 4, y: 4}
+        - {x: 4, y: 3}
+        - {x: 5, y: 3}
+        - {x: 5, y: 2}
+        - {x: 6, y: 2}
+        - {x: 6, y: -2}
+        - {x: 5, y: -2}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0af0f04137c237b45b7947b913a36ca7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_7
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 315
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 7, y: -3}
+        - {x: 7, y: -4}
+        - {x: 5, y: -4}
+        - {x: 5, y: -5}
+        - {x: -5, y: -5}
+        - {x: -5, y: -4}
+        - {x: -7, y: -4}
+        - {x: -7, y: -3}
+        - {x: -8, y: -3}
+        - {x: -8, y: 3}
+        - {x: -7, y: 3}
+        - {x: -7, y: 4}
+        - {x: -5, y: 4}
+        - {x: -5, y: 5}
+        - {x: 5, y: 5}
+        - {x: 5, y: 4}
+        - {x: 7, y: 4}
+        - {x: 7, y: 3}
+        - {x: 8, y: 3}
+        - {x: 8, y: -3}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b99b221f86d3ade4bafa6948153151d3
       vertices: []
       indices: 
       edges: []

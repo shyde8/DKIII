@@ -377,6 +377,8 @@ public class PlayerMovement : MonoBehaviour
             _body.gravityScale = _defGravityScale;
         }
 
+        pubIsGrounded = _isGrounded;
+
         #endregion
     }
 

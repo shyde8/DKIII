@@ -13,6 +13,7 @@ TextureImporter:
     21300016: LevelTiles_8
     21300018: LevelTiles_9
     21300020: LevelTiles_10
+    21300022: LevelTiles_11
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -303,13 +304,33 @@ TextureImporter:
         width: 224
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 5394edbce2aba9b488eccabb69229c24
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelTiles_11
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 136
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 545912f0e95c09d488d70f55b30a7c3d
       vertices: []
       indices: 
       edges: []
