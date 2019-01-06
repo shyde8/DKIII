@@ -31,9 +31,9 @@ public class BarrelGenerator : MonoBehaviour
         _numFrames++;
         if (_numFrames >= framesBetweenBarrels)
         {
-            float rand = Random.Range(0, 4);
+            float rand = Random.Range(0, 5);
 
-            if (rand == 0 || rand == 1)
+            if (rand == 0 || rand == 1 || rand == 4)
             {
                 _barrel = Instantiate(_barrelPrefab) as GameObject;
                 _barrel.transform.position = _GenPoint1.transform.position;

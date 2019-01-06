@@ -12,31 +12,44 @@ public class ElectricPoleController : MonoBehaviour
     [SerializeField]
     private GameObject _endMarker;
     private bool _shouldGenerate = true;
-    public float sparkGenSpeed = 4f;
-	// Use this for initialization
-	void Start ()
+    private float sparkGenSpeed = 2.5f;
+    private float secondaryWaitSpeed;
+    [SerializeField]
+    private bool isBigPole;
+    // Use this for initialization
+    void Start()
     {
         _sparkList = new List<GameObject>();
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-        if(_shouldGenerate)
-            StartCoroutine(Generate());
-	}
+        if (isBigPole)
+            secondaryWaitSpeed = .85f;
+        else
+            secondaryWaitSpeed = 1.5f;
+    }
 
-    private IEnumerator Generate()
+    // Update is called once per frame
+    void Update()
+    {
+        if (_shouldGenerate)
+            StartCoroutine(Generate(false));
+    }
+
+    private IEnumerator Generate(bool secondCall)
     {
         _shouldGenerate = false;
         GameObject _newSpark = Instantiate(_spark) as GameObject;
         _newSpark.GetComponent<SparkBehavior>()._EndPos = _endMarker.transform.position;
-        _newSpark.transform.position = _startMarker.transform.position;        
+        _newSpark.transform.position = _startMarker.transform.position;
         _sparkList.Add(_newSpark);
-        for (int i = 0; i < sparkGenSpeed; i++)
-        {            
-            yield return new WaitForSeconds(1);
+
+        float rand = Random.Range(0, 2);
+        if (rand == 1 && !secondCall)
+        {
+            yield return new WaitForSeconds(secondaryWaitSpeed);
+            StartCoroutine(Generate(true));
         }
+
+        //we will ALWAYS wait the specified amount in sparkGenSpeed before calling the co-routine again
+        yield return new WaitForSeconds(sparkGenSpeed);
         _shouldGenerate = true;
     }
 }

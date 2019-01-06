@@ -121,13 +121,13 @@ public class BarrelBehavior : MonoBehaviour
             if (ladderDown.collider != null)
             {
                 if (_randForLadder == float.MinValue)
-                    _randForLadder = Random.Range(0, 4);
+                    _randForLadder = Random.Range(0, 5);
                 if (_framesSinceStartedRolling >= _framesSinceStartedRollingThreshold)
                 {
                     {
                         if (Mathf.Abs(transform.position.x - ladderDown.collider.gameObject.transform.position.x) < .02)
                         {
-                            if (_randForLadder != 3)
+                            if (_randForLadder != 4)
                             {
                                 _body.velocity = Vector3.zero;
                                 Vector3 newPos = new Vector3(ladderDown.collider.gameObject.transform.position.x, transform.position.y);
