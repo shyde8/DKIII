@@ -54,7 +54,7 @@ public class PlayerCharacter : MonoBehaviour
         }
 
         //for now, we just reset the scene when player touches the bottom of the level
-        if (string.Equals("Background", col.gameObject.name, System.StringComparison.OrdinalIgnoreCase))
-            SceneManager.LoadScene(activeScene.name);
+        //if (string.Equals("Background", col.gameObject.name, System.StringComparison.OrdinalIgnoreCase))
+        //    SceneManager.LoadScene(activeScene.name);
     }  
 }

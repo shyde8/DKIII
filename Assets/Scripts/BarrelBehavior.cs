@@ -24,6 +24,7 @@ public class BarrelBehavior : MonoBehaviour
     private int framesSinceFallSpriteSwap = 0;
     private int fallSpriteFrameSwapThreshold = 20;
     private float ladderDetectionDistance = 1f;
+    private bool _isGrounded;
 
     private bool _isRolling = true;
     private bool _isFalling = false;
@@ -35,6 +36,8 @@ public class BarrelBehavior : MonoBehaviour
     private CircleCollider2D _circle;
     private int _framesSinceStartedRolling = 0;
     private int _framesSinceStartedRollingThreshold = 10;
+
+    private float _randForLadder = float.MinValue;
 
 
 	// Use this for initialization
@@ -86,32 +89,60 @@ public class BarrelBehavior : MonoBehaviour
 
             _framesSinceStartedRolling++;
 
+            //check if grounded
+            Vector3 max = _circle.bounds.max;
+            Vector3 min = _circle.bounds.min;
+            Vector2 corner1 = new Vector2(max.x, min.y - .065f);
+            Vector2 corner2 = new Vector2(min.x, min.y - .065f);
+            Collider2D hit = Physics2D.OverlapArea(corner1, corner2);
+            _isGrounded = false;
+
+            if (hit != null && hit.GetComponent<Collider2D>().gameObject.layer == 9)
+            {
+                _isGrounded = true;
+
+                if (hit.GetComponent<BarrelDirector>() != null)
+                    _direction = hit.GetComponent<BarrelDirector>().direction;
+            }
+                
+
             float deltaX = 0;
-            deltaX = _speed * _direction * Time.deltaTime;
+            //only move on x-axis is grounded
+            if (_isGrounded)
+                deltaX = _speed * _direction * Time.deltaTime;
             Vector2 movement = new Vector2(deltaX, _body.velocity.y);
-            _body.velocity = movement;
+            
+            _body.velocity = movement;                
 
             RaycastHit2D ladderDown = Physics2D.Raycast(transform.position, Vector2.down, ladderDetectionDistance + 1f, 1 << LayerMask.NameToLayer("Ladder"));
             if (ladderDown.collider == null)
                 ladderDown = Physics2D.Raycast(transform.position, Vector2.down, ladderDetectionDistance + 1f, 1 << LayerMask.NameToLayer("HalfLadder"));
 
-            if(ladderDown.collider != null)
+            if (ladderDown.collider != null)
             {
-                if(_framesSinceStartedRolling >= _framesSinceStartedRollingThreshold)
+                if (_randForLadder == float.MinValue)
+                    _randForLadder = Random.Range(0, 4);
+                if (_framesSinceStartedRolling >= _framesSinceStartedRollingThreshold)
                 {
-                    if (Mathf.Abs(transform.position.x - ladderDown.collider.gameObject.transform.position.x) < .02)
                     {
-                        _body.velocity = Vector3.zero;
-                        Vector3 newPos = new Vector3(ladderDown.collider.gameObject.transform.position.x, transform.position.y);
-                        transform.position = newPos;
-                        _isRolling = false;
-                        _isFalling = true;
-                        _circle.isTrigger = true;
-                        _body.gravityScale = 0;
-
+                        if (Mathf.Abs(transform.position.x - ladderDown.collider.gameObject.transform.position.x) < .02)
+                        {
+                            if (_randForLadder != 3)
+                            {
+                                _body.velocity = Vector3.zero;
+                                Vector3 newPos = new Vector3(ladderDown.collider.gameObject.transform.position.x, transform.position.y);
+                                transform.position = newPos;
+                                _isRolling = false;
+                                _isFalling = true;
+                                _circle.isTrigger = true;
+                                _body.gravityScale = 0;
+                            }
+                        }
                     }
-                }                             
+                }
             }
+            else if (ladderDown.collider == null)
+                _randForLadder = float.MinValue;
         }
 
         if(_isFalling)
@@ -137,6 +168,7 @@ public class BarrelBehavior : MonoBehaviour
             Vector3 newPos = new Vector3(transform.position.x, transform.position.y + .1f);
             transform.position = newPos;
             _framesSinceStartedRolling = 0;
+            
         }
     }
 }
