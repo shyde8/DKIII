@@ -24,27 +24,27 @@ public class BarrelGenerator : MonoBehaviour
     {
 		
 	}
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
         _numFrames++;
-        if(_numFrames >= framesBetweenBarrels)
+        if (_numFrames >= framesBetweenBarrels)
         {
-            float rand = Random.Range(0, 3);
+            float rand = Random.Range(0, 4);
 
-            if(rand == 0)
+            if (rand == 0 || rand == 1)
             {
                 _barrel = Instantiate(_barrelPrefab) as GameObject;
                 _barrel.transform.position = _GenPoint1.transform.position;
             }
-            else if (rand == 1)
+            else if (rand == 2)
             {
                 _barrel = Instantiate(_barrelPrefab) as GameObject;
                 _barrel.transform.position = _GenPoint2.transform.position;
                 StartCoroutine(BarrelThrow(_barrel, _DestPoint1));
             }
-            else if (rand == 2)
+            else if (rand == 3)
             {
                 _barrel = Instantiate(_barrelPrefab) as GameObject;
                 _barrel.transform.position = _GenPoint2.transform.position;
