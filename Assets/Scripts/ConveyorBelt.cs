@@ -47,6 +47,10 @@ public class ConveyorBelt : MonoBehaviour
                     tempMaxVel += 2.5f;
             }
         }
+        else if (collision.gameObject.GetComponent<PlayerMovement>() == null)
+        {
+            collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(1 * Mathf.Sign(speed), 0);
+        }
 
         if (Mathf.Abs(body.velocity.x) > Mathf.Abs(tempMaxVel))
         {

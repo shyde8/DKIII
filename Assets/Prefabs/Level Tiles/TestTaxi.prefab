@@ -55,7 +55,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4836385288556886}
-  - component: {fileID: 50222970596868796}
+  - component: {fileID: 50418397876454714}
   m_Layer: 9
   m_Name: TestTaxi
   m_TagString: Untagged
@@ -114,7 +114,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1906383428855014}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.74, y: -5.34, z: 0}
+  m_LocalPosition: {x: 1.51, y: -0.84, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children:
   - {fileID: 4983296936410738}
@@ -136,7 +136,7 @@ Transform:
   m_Father: {fileID: 4836385288556886}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50222970596868796
+--- !u!50 &50418397876454714
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
@@ -257,7 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff15b35401bdbd144b6baef0336d82bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bounceJumpMultiplier: 1.75
+  _bounceJumpMultiplier: 1.6
 --- !u!114 &114951522676525274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -269,7 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff15b35401bdbd144b6baef0336d82bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bounceJumpMultiplier: 1.75
+  _bounceJumpMultiplier: 1.6
 --- !u!114 &114986621140738700
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -281,7 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff15b35401bdbd144b6baef0336d82bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bounceJumpMultiplier: 1.75
+  _bounceJumpMultiplier: 1.6
 --- !u!212 &212029556461727538
 SpriteRenderer:
   m_ObjectHideFlags: 1
