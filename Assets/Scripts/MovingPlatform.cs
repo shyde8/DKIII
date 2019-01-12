@@ -62,7 +62,7 @@ public class MovingPlatform : MonoBehaviour
 
             //platform will have arrived at destination when _trackPercentX and _trackPercentY are both around 1f
             //if direction is 0, then we do not need to make sure that _trackPercent is around 1f, since the platform doesn't need to move on that axis
-            if ((Mathf.Abs(_trackPercentX) > .97f || _directionX == 0) && (Mathf.Abs(_trackPercentY) > .97f || _directionY == 0))
+            if ((Mathf.Abs(_trackPercentX) > .99f || _directionX == 0) && (Mathf.Abs(_trackPercentY) > .99f || _directionY == 0))
             {
                 if (_posCounter + 1 >= positions.Length)
                     _posCounter = 0;
@@ -96,6 +96,9 @@ public class MovingPlatform : MonoBehaviour
                     _directionY = -1;
                 else
                     _directionY = 0;
+
+                this.enabled = false;
+
             }
         }
         //for lever-controlled platform, it's assumed that there's only two points

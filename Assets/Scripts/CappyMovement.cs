@@ -23,6 +23,7 @@ public class CappyMovement : MonoBehaviour
     private bool _isReturnRunning = false; //flag to indicate whether the the Return() coroutine has started
     private float _accumulatedTime = 0f;
     private float _returnSpeedMultiplier = 2f; //we want cappy to return to jumpman at faster than the speed at which he is initially thrown
+    private BoxCollider2D _box;
 
     private void Start()
     {
@@ -33,6 +34,7 @@ public class CappyMovement : MonoBehaviour
         _endPos = new Vector3(transform.position.x + (_direction * endPosOffset), transform.position.y);        
         _yOffset = _startPos.y - _jumpMan.transform.position.y;
         StartCoroutine(Throw());
+        _box = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -124,6 +126,16 @@ public class CappyMovement : MonoBehaviour
             _trackPercent = .99f;
             transform.position = collision.gameObject.transform.position;
         }            
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        _box.isTrigger = true;
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        _box.isTrigger = false;
     }
 
     public void StartReturning()

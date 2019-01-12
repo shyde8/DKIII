@@ -23,6 +23,8 @@ GameObject:
   - component: {fileID: 61834272714305918}
   - component: {fileID: 50833462101539632}
   - component: {fileID: 114012913880596164}
+  - component: {fileID: 114920828114110100}
+  - component: {fileID: 114022972569569092}
   m_Layer: 0
   m_Name: Pie
   m_TagString: Untagged
@@ -37,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1999098878435030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.26119542, y: -0.58, z: 0}
+  m_LocalPosition: {x: -4.8352823, y: -1.4698975, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
@@ -97,6 +99,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3a8ed09d2ea0fbf4898cd210298fa3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114022972569569092
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1999098878435030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c699c708ca0991241ae0c5d09951d6a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyY: -6.110032
+--- !u!114 &114920828114110100
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1999098878435030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f96a8fa6e1869245a179dbf1b87b890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212896043639048928

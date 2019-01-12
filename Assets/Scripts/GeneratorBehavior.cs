@@ -11,27 +11,31 @@ public class GeneratorBehavior : MonoBehaviour
     [SerializeField]
     private GameObject _referencePlatform;
     private bool _isGenerating = false;
+    [SerializeField]
+    private GameObject _generatorAndPlatformController;
 
     public float generationSpeed;
 
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
+
+    }
+
+    // Update is called once per frame
+    void Update()
     {
-        if(!_isGenerating)
-        {            
-            StartCoroutine(Generate());
-        }          
-	}
+        if (!_isGenerating)
+        {
+            if (_generatorAndPlatformController.GetComponent<GeneratorAndPlatformController>().withinTwoSecondsOfFlip == false)
+                StartCoroutine(Generate());
+        }
+    }
 
     private IEnumerator Generate()
-    {        _isGenerating = true;
+    {
+        _isGenerating = true;
         yield return new WaitForSeconds(generationSpeed);
         GameObject obj;
         if (_referencePlatform.GetComponent<PlatformItemManager>().ContainsTaxi() == false)
@@ -41,6 +45,6 @@ public class GeneratorBehavior : MonoBehaviour
         obj = Instantiate(obj) as GameObject;
         Vector3 newPos = new Vector3(transform.position.x, transform.position.y - 0.5f);
         obj.transform.position = newPos;
-        _isGenerating = false; 
+        _isGenerating = false;
     }
 }
