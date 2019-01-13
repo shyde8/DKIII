@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 95124452251859514}
   - component: {fileID: 114423621341016548}
   - component: {fileID: 82046040113920356}
+  - component: {fileID: 114612806225115734}
   m_Layer: 0
   m_Name: Jumpman
   m_TagString: Player
@@ -40,7 +41,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1503787749983632}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.18, y: -5.31, z: -1}
+  m_LocalPosition: {x: -3.77, y: 1.02, z: -1}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
@@ -228,6 +229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50badb4823550cb4990a4c8584b310b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pubDeltaX: 0
+  pubIsGrounded: 0
   speed: 150
   jumpForce: 5.7
   wallSlideSpeed: -1
@@ -254,6 +257,18 @@ MonoBehaviour:
   walk_7: {fileID: 8300000, guid: 7fa72c4cdde974743a3457ab8e4a4b83, type: 3}
   cappyJumpSound: {fileID: 8300000, guid: c81db141aad94e94e91cc16f58f0e38c, type: 3}
   _climbSound: {fileID: 8300000, guid: 7fa72c4cdde974743a3457ab8e4a4b83, type: 3}
+--- !u!114 &114612806225115734
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1503787749983632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29f73af7266485c4b8ea7b69e364069f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreSound: {fileID: 8300000, guid: 3e827503e8995b94ca9a2456b94a527e, type: 3}
 --- !u!212 &212660700104216194
 SpriteRenderer:
   m_ObjectHideFlags: 1
