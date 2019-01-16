@@ -43,7 +43,7 @@ public class GeneratorBehavior : MonoBehaviour
         else
             obj = _pie;
         obj = Instantiate(obj) as GameObject;
-        Vector3 newPos = new Vector3(transform.position.x, transform.position.y - 0.5f);
+        Vector3 newPos = new Vector3(transform.position.x, transform.position.y/* - 0.5f*/);
         obj.transform.position = newPos;
         _isGenerating = false;
     }

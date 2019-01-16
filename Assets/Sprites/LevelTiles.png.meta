@@ -14,6 +14,11 @@ TextureImporter:
     21300018: LevelTiles_9
     21300020: LevelTiles_10
     21300022: LevelTiles_11
+    21300024: LevelTiles_12
+    21300026: LevelTiles_13
+    21300028: LevelTiles_14
+    21300030: LevelTiles_15
+    21300032: LevelTiles_16
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -324,13 +329,182 @@ TextureImporter:
         width: 8
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 545912f0e95c09d488d70f55b30a7c3d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelTiles_12
+      rect:
+        serializedVersion: 2
+        x: 702
+        y: 167
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -1.5, y: -5}
+        - {x: -1.5, y: -4}
+        - {x: -3.5, y: -4}
+        - {x: -3.5, y: -3}
+        - {x: -4.5, y: -3}
+        - {x: -4.5, y: -2}
+        - {x: -5.5, y: -2}
+        - {x: -5.5, y: 2}
+        - {x: -4.5, y: 2}
+        - {x: -4.5, y: 3}
+        - {x: -3.5, y: 3}
+        - {x: -3.5, y: 4}
+        - {x: -1.5, y: 4}
+        - {x: -1.5, y: 5}
+        - {x: 5.5, y: 5}
+        - {x: 5.5, y: -5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f52434678ea599499300cc020063a0c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelTiles_13
+      rect:
+        serializedVersion: 2
+        x: 911
+        y: 167
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 4.5, y: -2}
+        - {x: 4.5, y: -3}
+        - {x: 3.5, y: -3}
+        - {x: 3.5, y: -4}
+        - {x: 1.5, y: -4}
+        - {x: 1.5, y: -5}
+        - {x: -5.5, y: -5}
+        - {x: -5.5, y: 5}
+        - {x: -4.5, y: 5}
+        - {x: 1.5, y: 5}
+        - {x: 1.5, y: 4}
+        - {x: 3.5, y: 4}
+        - {x: 3.5, y: 3}
+        - {x: 4.5, y: 3}
+        - {x: 4.5, y: 2}
+        - {x: 5.5, y: 2}
+        - {x: 5.5, y: -2}
+      - - {x: -4.5, y: 5}
+        - {x: -4.5, y: 5}
+        - {x: -4.5, y: 5}
+        - {x: -4.5, y: 5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c710630670423d641b5b5bd8288107d3
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelTiles_14
+      rect:
+        serializedVersion: 2
+        x: 702
+        y: 47
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -1.5, y: -5}
+        - {x: -1.5, y: -4}
+        - {x: -3.5, y: -4}
+        - {x: -3.5, y: -3}
+        - {x: -4.5, y: -3}
+        - {x: -4.5, y: -2}
+        - {x: -5.5, y: -2}
+        - {x: -5.5, y: 2}
+        - {x: -4.5, y: 2}
+        - {x: -4.5, y: 3}
+        - {x: -3.5, y: 3}
+        - {x: -3.5, y: 4}
+        - {x: -1.5, y: 4}
+        - {x: -1.5, y: 5}
+        - {x: 5.5, y: 5}
+        - {x: 5.5, y: -5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0b890da8b7432845b1891115a37cb16
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelTiles_15
+      rect:
+        serializedVersion: 2
+        x: 911
+        y: 47
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 3.5, y: -4}
+        - {x: 1.5, y: -4}
+        - {x: 1.5, y: -5}
+        - {x: -5.5, y: -5}
+        - {x: -5.5, y: 5}
+        - {x: 1.5, y: 5}
+        - {x: 1.5, y: 4}
+        - {x: 3.5, y: 4}
+        - {x: 3.5, y: 3}
+        - {x: 4.5, y: 3}
+        - {x: 4.5, y: 2}
+        - {x: 5.5, y: 2}
+        - {x: 5.5, y: -2}
+        - {x: 4.5, y: -2}
+        - {x: 4.5, y: -3}
+        - {x: 3.5, y: -3}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8faf4664881dc94285ba3b8d7652cfb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LevelTiles_16
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 96
+        width: 32
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb606d7a738197d4bb4526fddb4efed2
       vertices: []
       indices: 
       edges: []
