@@ -8,7 +8,7 @@ public class EnemyJumpDetector : MonoBehaviour
     private AudioClip scoreSound;
     private AudioSource _audio;
     private BoxCollider2D _box;
-    private float detectionDistance = .8f;
+    private float detectionDistance = .8f; //.8f
     private int framesBetweenScores = 0;
     private int framesBetweenScoresThreshold = 15;
 
@@ -24,7 +24,12 @@ public class EnemyJumpDetector : MonoBehaviour
     {
         framesBetweenScores++;
         Vector2 startPos = new Vector2(transform.position.x, _box.bounds.min.y);
-        RaycastHit2D enemyHit = Physics2D.Raycast(startPos, Vector2.down, detectionDistance, 1 << LayerMask.NameToLayer("Enemy"));
+        float tempDistance = detectionDistance;
+        if(gameObject.GetComponent<PlayerMovement>().pubIsGrounded == false)
+        {
+            tempDistance += 0.5f;
+        }
+        RaycastHit2D enemyHit = Physics2D.Raycast(startPos, Vector2.down, tempDistance, 1 << LayerMask.NameToLayer("Enemy"));
         if(enemyHit.collider != null)
         {
             if (enemyHit.collider.gameObject.GetComponent<ReactiveEnemy>() != null)
