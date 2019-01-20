@@ -8,7 +8,7 @@ public class EnemyJumpDetector : MonoBehaviour
     private AudioClip scoreSound;
     private AudioSource _audio;
     private BoxCollider2D _box;
-    private float detectionDistance = .8f; //.8f
+    private float detectionDistance = .7f; //.8f
     private int framesBetweenScores = 0;
     private int framesBetweenScoresThreshold = 15;
 
@@ -36,7 +36,7 @@ public class EnemyJumpDetector : MonoBehaviour
             {
                 if(framesBetweenScores >= framesBetweenScoresThreshold)
                 {
-                    Debug.Log("Here");
+                    Messenger.Broadcast(GameEvent.ENEMY_JUMPED);
                     _audio.PlayOneShot(scoreSound);
                     framesBetweenScores = 0;
                 }                
