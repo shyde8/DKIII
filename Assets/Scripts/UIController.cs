@@ -21,6 +21,17 @@ public class UIController : MonoBehaviour
     [SerializeField]
     private Text levelLabel;
 
+    private int _numLives;
+    [SerializeField]
+    private Image _firstLive;
+    [SerializeField]
+    private Image _secondLive;
+    [SerializeField]
+    private Image _thirdLive;
+
+    [SerializeField]
+    private GameObject _Manager;
+
     private int _pointsOnEnemyJump = 100;
     private int _framesBetweenClockDecrement = 0;
     private int _framesBetweenClockDecrementThreshold = 120; //game runs at approximately 60fps, so decrement clock every ~2 seconds
@@ -29,12 +40,14 @@ public class UIController : MonoBehaviour
     {
         Messenger.AddListener(GameEvent.ENEMY_JUMPED, OnEnemyJump);
         Messenger.AddListener(GameEvent.LEVEL_INCREASED, OnLevelIncrease);
+        Messenger.AddListener(GameEvent.LIVE_LOST, LifeLost);
     }
 
     private void OnDestroy()
     {
         Messenger.RemoveListener(GameEvent.ENEMY_JUMPED, OnEnemyJump);
         Messenger.RemoveListener(GameEvent.LEVEL_INCREASED, OnLevelIncrease);
+        Messenger.RemoveListener(GameEvent.LIVE_LOST, LifeLost);
     }
 
     // Use this for initialization
@@ -44,6 +57,9 @@ public class UIController : MonoBehaviour
         highScoreLabel.text = _highScore.ToString("D6");
         timerCountdownLabel.text = _timerCountdown.ToString();
         levelLabel.text = _level.ToString("D2");
+
+        _numLives = Managers.Player.NumberOfLives();
+        DisplayLives(_numLives);
     }
 	
 	// Update is called once per frame
@@ -76,5 +92,28 @@ public class UIController : MonoBehaviour
     {
         _level++;
         levelLabel.text = _level.ToString("D2");
+    }
+
+    void DisplayLives(int numLives)
+    {
+        _firstLive.enabled = true;
+        _secondLive.enabled = true;
+        _thirdLive.enabled = true;
+
+        if(numLives == 2)
+        {
+            _thirdLive.enabled = false;
+        }
+        if(numLives == 1)
+        {
+            _thirdLive.enabled = false;
+            _secondLive.enabled = false;
+        }
+    }
+
+    void LifeLost()
+    {
+        _numLives--;
+        DisplayLives(_numLives);
     }
 }
