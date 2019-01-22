@@ -5,19 +5,16 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-    private int _score = 0;
     [SerializeField]
     private Text scoreLabel;
 
-    private int _highScore = 7650;
     [SerializeField]
     private Text highScoreLabel;
 
-    private int _timerCountdown = 7000;
+    public int timerCountdown = 7000;
     [SerializeField]
     private Text timerCountdownLabel;
 
-    private int _level = 1;
     [SerializeField]
     private Text levelLabel;
 
@@ -29,73 +26,79 @@ public class UIController : MonoBehaviour
     [SerializeField]
     private Image _thirdLive;
 
-    [SerializeField]
-    private GameObject _Manager;
+    //private GameObject _Manager;
 
-    private int _pointsOnEnemyJump = 100;
+    private AudioSource _source;
+    [SerializeField]
+    private AudioClip _levelCompleteClip;
+
     private int _framesBetweenClockDecrement = 0;
     private int _framesBetweenClockDecrementThreshold = 120; //game runs at approximately 60fps, so decrement clock every ~2 seconds
 
     private void Awake()
     {
-        Messenger.AddListener(GameEvent.ENEMY_JUMPED, OnEnemyJump);
-        Messenger.AddListener(GameEvent.LEVEL_INCREASED, OnLevelIncrease);
-        Messenger.AddListener(GameEvent.LIVE_LOST, LifeLost);
+        Messenger.AddListener(GameEvent.ENEMY_JUMPED, RefreshScore);
+        Messenger.AddListener(GameEvent.HIGHSCORE_ADJUSTED, RefreshHighScore);
+        Messenger.AddListener(GameEvent.LEVEL_INCREASED, RefreshLevelLabel);
+        Messenger.AddListener(GameEvent.LIVE_LOST, DisplayLives);
+        Messenger.AddListener(GameEvent.LEVEL_COMPLETE, OnLevelComplete);
+        Messenger.AddListener(GameEvent.GAME_OVER, OnGameOver);
     }
 
     private void OnDestroy()
     {
-        Messenger.RemoveListener(GameEvent.ENEMY_JUMPED, OnEnemyJump);
-        Messenger.RemoveListener(GameEvent.LEVEL_INCREASED, OnLevelIncrease);
-        Messenger.RemoveListener(GameEvent.LIVE_LOST, LifeLost);
+        Messenger.RemoveListener(GameEvent.ENEMY_JUMPED, RefreshScore);
+        Messenger.RemoveListener(GameEvent.HIGHSCORE_ADJUSTED, RefreshHighScore);
+        Messenger.RemoveListener(GameEvent.LEVEL_INCREASED, RefreshLevelLabel);
+        Messenger.RemoveListener(GameEvent.LIVE_LOST, DisplayLives);
+        Messenger.RemoveListener(GameEvent.LEVEL_COMPLETE, OnLevelComplete);
+        Messenger.RemoveListener(GameEvent.GAME_OVER, OnGameOver);
     }
 
     // Use this for initialization
     void Start ()
     {
-        scoreLabel.text = _score.ToString("D6");
-        highScoreLabel.text = _highScore.ToString("D6");
-        timerCountdownLabel.text = _timerCountdown.ToString();
-        levelLabel.text = _level.ToString("D2");
-
-        _numLives = Managers.Player.NumberOfLives();
-        DisplayLives(_numLives);
+        _source = GetComponent<AudioSource>();
+        scoreLabel.text = Managers.Player.score.ToString("D6");
+        highScoreLabel.text = Managers.Player.highScore.ToString("D6");
+        timerCountdownLabel.text = timerCountdown.ToString();
+        levelLabel.text = Managers.Player.level.ToString("D2");
+        _numLives = Managers.Player.numLives;
+        DisplayLives();
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        //adjust high score if needed
-        if (_score > _highScore)
-        {
-            _highScore = _score;
-            highScoreLabel.text = _highScore.ToString("D6");
-        }
-
         //adjust countdown if needed
         _framesBetweenClockDecrement++;
         if(_framesBetweenClockDecrement >= _framesBetweenClockDecrementThreshold)
         {
             _framesBetweenClockDecrement = 0;
-            _timerCountdown -= 100;
-            timerCountdownLabel.text = _timerCountdown.ToString();
+            timerCountdown -= 100;
+            timerCountdownLabel.text = timerCountdown.ToString();
         }
     }
 
-    void OnEnemyJump()
+    void RefreshScore()
     {
-        _score += _pointsOnEnemyJump;
-        scoreLabel.text = _score.ToString("D6");
+        scoreLabel.text = Managers.Player.score.ToString("D6");
     }
 
-    void OnLevelIncrease()
+    void RefreshHighScore()
     {
-        _level++;
-        levelLabel.text = _level.ToString("D2");
+        highScoreLabel.text = Managers.Player.highScore.ToString("D6");
     }
 
-    void DisplayLives(int numLives)
+    void RefreshLevelLabel()
     {
+        levelLabel.text = Managers.Player.level.ToString("D2");
+    }
+
+    void DisplayLives()
+    {
+        int numLives = Managers.Player.numLives;
+
         _firstLive.enabled = true;
         _secondLive.enabled = true;
         _thirdLive.enabled = true;
@@ -111,9 +114,18 @@ public class UIController : MonoBehaviour
         }
     }
 
-    void LifeLost()
+    void OnLevelComplete()
     {
-        _numLives--;
-        DisplayLives(_numLives);
+        RefreshScore();
+        RefreshHighScore();
+        _source.PlayOneShot(_levelCompleteClip);
+    }
+
+    private void OnGameOver()
+    {
+        RefreshScore();
+        RefreshLevelLabel();
+        DisplayLives();
+        RefreshHighScore();         
     }
 }

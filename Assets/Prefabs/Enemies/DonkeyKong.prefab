@@ -20,9 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4755292005616386}
   - component: {fileID: 212298962845035054}
+  - component: {fileID: 114634468334490580}
   m_Layer: 0
   m_Name: DonkeyKong
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,6 +41,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114634468334490580
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1363014878587984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8bcd149f1a0c2542aa3bbb4626ee04f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _barrelPrefab: {fileID: 1833588018610902, guid: a12d83b5e592fc048a8a95c4a33fe499,
+    type: 2}
+  _GenPoint1: {fileID: 0}
+  _GenPoint2: {fileID: 0}
+  _DestPoint1: {fileID: 0}
+  _DestPoint2: {fileID: 0}
+  framesBetweenBarrels: 150
 --- !u!212 &212298962845035054
 SpriteRenderer:
   m_ObjectHideFlags: 1

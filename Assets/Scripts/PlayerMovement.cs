@@ -418,6 +418,12 @@ public class PlayerMovement : MonoBehaviour
                 }
             }            
         }
+
+        ReactiveEnemy enemy = collision.gameObject.GetComponent<ReactiveEnemy>();
+        if (enemy != null)
+        {
+            Managers.Mission.LevelFailed();
+        }
     }
 
     public void CappyThrowBurst()

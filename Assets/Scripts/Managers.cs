@@ -14,19 +14,32 @@ public class Managers : MonoBehaviour
 
     private List<IGameManager> _startSequence;
 
+    public static Managers instance = null;
+
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-        Player = GetComponent<PlayerManager>();
-        Inventory = GetComponent<InventoryManager>();
-        Mission = GetComponent<MissionManager>();
+        if (instance == null)
+        {
+            instance = this;
 
-        _startSequence = new List<IGameManager>();
-        _startSequence.Add(Player);
-        _startSequence.Add(Inventory);
-        _startSequence.Add(Mission);
+            DontDestroyOnLoad(gameObject);
+            Player = GetComponent<PlayerManager>();
+            Inventory = GetComponent<InventoryManager>();
+            Mission = GetComponent<MissionManager>();
 
-        StartCoroutine(StartupManagers());
+            _startSequence = new List<IGameManager>();
+            _startSequence.Add(Player);
+            _startSequence.Add(Inventory);
+            _startSequence.Add(Mission);
+
+            StartCoroutine(StartupManagers());
+        }            
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+            Messenger.Broadcast(GameEvent.GAME_RESET);
+        }
+            
     }
 
     private IEnumerator StartupManagers()
@@ -52,10 +65,6 @@ public class Managers : MonoBehaviour
                     numReady++;
             }
 
-            //if (numReady > lastReady)
-            //{
-            //    Messenger<int, int>.Broadcast(StartupEvent.MANAGERS_PROGRESS, numReady, numModules);
-            //}
             yield return null;
         }
         Messenger.Broadcast(StartupEvent.MANAGERS_STARTED);

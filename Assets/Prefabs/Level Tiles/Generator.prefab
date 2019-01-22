@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114891280504506634}
   m_Layer: 0
   m_Name: Generator
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35,8 +35,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1195932371336028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.5, y: 5.975719, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -3.5, y: 5.62, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -55,6 +55,7 @@ MonoBehaviour:
   _pie: {fileID: 1999098878435030, guid: 200852fb61033f04a8e296702e61d35a, type: 2}
   _taxi: {fileID: 1906383428855014, guid: c8afa32bdaa75a94293a3ef434e2d744, type: 2}
   _referencePlatform: {fileID: 0}
+  _generatorAndPlatformController: {fileID: 0}
   generationSpeed: 3
 --- !u!212 &212453320626622136
 SpriteRenderer:
@@ -91,7 +92,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d0f0086048c794a4cbde8164e71dc9ae, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,6 +100,6 @@ SpriteRenderer:
   m_Size: {x: 1.19, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
