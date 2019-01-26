@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour, IGameManager
     public int score = 0;
     public int highScore = 7650;
     public int level = 0;
+    public int numCredits = 0;
 
     public void Startup()
     {

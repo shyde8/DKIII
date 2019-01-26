@@ -8,6 +8,8 @@ TextureImporter:
     21300006: Arcade - Donkey Kong - 75 M100 M_3
     21300008: Arcade - Donkey Kong - 75 M100 M_4
     21300010: Jumpman_0
+    21300012: Jumpman_1
+    21300014: Jumpman_2
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -438,6 +440,155 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 994d6f23862590c4d87ac414312eab97
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumpman_1
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 425
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -6, y: -6.5}
+        - {x: -7, y: -6.5}
+        - {x: -7, y: -4.5}
+        - {x: -5, y: -4.5}
+        - {x: -5, y: -3.5}
+        - {x: -4, y: -3.5}
+        - {x: -4, y: -2.5}
+        - {x: -5, y: -2.5}
+        - {x: -5, y: -1.5}
+        - {x: -7, y: -1.5}
+        - {x: -7, y: -0.5}
+        - {x: -8, y: -0.5}
+        - {x: -8, y: 1.5}
+        - {x: -7, y: 1.5}
+        - {x: -7, y: 2.5}
+        - {x: -6, y: 2.5}
+        - {x: -6, y: 3.5}
+        - {x: -5, y: 3.5}
+        - {x: -5, y: 5.5}
+        - {x: -4, y: 5.5}
+        - {x: -4, y: 6.5}
+        - {x: -5, y: 6.5}
+        - {x: -5, y: 7.5}
+        - {x: -4, y: 7.5}
+        - {x: -4, y: 6.5}
+        - {x: -3, y: 6.5}
+        - {x: -2.961029, y: 7.5}
+        - {x: 3, y: 7.5}
+        - {x: 3, y: 6.5}
+        - {x: 4, y: 6.5}
+        - {x: 4, y: 5.5}
+        - {x: 5, y: 5.5}
+        - {x: 5, y: 3.5}
+        - {x: 6, y: 3.5}
+        - {x: 6, y: 2.5}
+        - {x: 7, y: 2.5}
+        - {x: 7, y: 1.5}
+        - {x: 8, y: 1.5}
+        - {x: 8, y: -0.5}
+        - {x: 7, y: -0.5}
+        - {x: 7, y: -1.5}
+        - {x: 5, y: -1.5}
+        - {x: 5, y: -2.5}
+        - {x: 4, y: -2.5}
+        - {x: 4, y: -3.5}
+        - {x: 6, y: -3.5}
+        - {x: 6, y: -2.5}
+        - {x: 8, y: -2.5}
+        - {x: 8, y: -5.5}
+        - {x: 7, y: -5.5}
+        - {x: 7, y: -6.5}
+        - {x: 2, y: -6.5}
+        - {x: 2, y: -5.5}
+        - {x: -1, y: -5.5}
+        - {x: -1, y: -6.5}
+        - {x: -2, y: -6.5}
+        - {x: -2, y: -7.5}
+        - {x: -5, y: -7.5}
+        - {x: -5, y: -6.5}
+      - - {x: -6, y: -6.5}
+        - {x: -6, y: -6.5}
+        - {x: -6, y: -6.5}
+        - {x: -6, y: -6.5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ced75ac7ec96cff48a387d6a7448c856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumpman_2
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 424
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -8, y: -8}
+        - {x: -8, y: -6}
+        - {x: -7, y: -6}
+        - {x: -7, y: -4}
+        - {x: -8, y: -4}
+        - {x: -8, y: -1}
+        - {x: -7, y: -1}
+        - {x: -7, y: 2}
+        - {x: -6, y: 2}
+        - {x: -6, y: 3}
+        - {x: -5, y: 3}
+        - {x: -5, y: 4}
+        - {x: -1, y: 4}
+        - {x: -1, y: 3}
+        - {x: 1, y: 3}
+        - {x: 1, y: 1}
+        - {x: -1, y: 1}
+        - {x: -1, y: 2}
+        - {x: -2, y: 2}
+        - {x: -2, y: 1}
+        - {x: -3, y: 1}
+        - {x: -3, y: 0}
+        - {x: -2, y: 0}
+        - {x: -2, y: -1}
+        - {x: 0, y: -1}
+        - {x: 0, y: -2}
+        - {x: 2, y: -2}
+        - {x: 2, y: -1}
+        - {x: 3, y: -1}
+        - {x: 3, y: 0}
+        - {x: 4, y: 0}
+        - {x: 4, y: -1}
+        - {x: 5, y: -1}
+        - {x: 5, y: -3}
+        - {x: 6, y: -3}
+        - {x: 6, y: -2}
+        - {x: 7, y: -2}
+        - {x: 7, y: -1}
+        - {x: 8, y: -1}
+        - {x: 8, y: -2}
+        - {x: 7, y: -2}
+        - {x: 7, y: -3}
+        - {x: 8, y: -3}
+        - {x: 8, y: -7}
+        - {x: 7, y: -7}
+        - {x: 7, y: -8}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8a9bbfedc2aa0f4ca53b9d158a57e8f
       vertices: []
       indices: 
       edges: []

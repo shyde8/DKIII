@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class StartupController : MonoBehaviour
 {
@@ -41,7 +42,7 @@ public class StartupController : MonoBehaviour
     {
         _isGameStarted = false;
         _audio.PlayOneShot(_startupClip);
-        _coinsLabel.text = _numCoins.ToString("D2");
+        _coinsLabel.text = Managers.Player.numCredits.ToString("D2");
         _highScoreLabel.text = Managers.Player.highScore.ToString("D6");
     }
 
@@ -52,32 +53,29 @@ public class StartupController : MonoBehaviour
 
     private void OnCoinInsert()
     {
-        _numCoins++;
-        if(_coinsLabel == null)
-        {
-            _coinsLabel = GameObject.Find("Canvas/Credit/NumCredits").GetComponent<Text>();
-        }            
-        _coinsLabel.text = _numCoins.ToString("D2");
+        //Managers.Player.numCredits++;
+        //_coinsLabel.text = Managers.Player.numCredits.ToString("D2");
     }
 
     private IEnumerator StartGame()
     {
-        while(!_isGameStarted)
+        while (!_isGameStarted)
         {
             if (Input.GetKeyDown(KeyCode.F5))
             {
                 Messenger.Broadcast(GameEvent.COIN_INSERTED);
                 _audio.PlayOneShot(_coinInsert);
-            }                
-            if (Input.GetKeyDown(KeyCode.F1) && _numCoins > 0)
+            }
+            if (Input.GetKeyDown(KeyCode.F1) && Managers.Player.numCredits > 0)
             {
                 _audio.PlayOneShot(_gameStart);
                 _isGameStarted = true;
                 yield return new WaitForSeconds(7);
-            }                
+            }
             yield return new WaitForFixedUpdate();
         }
-        Managers.Mission.GoToNext();        
+        _isGameStarted = false;
+        Managers.Mission.GoToNext();
     }
 
     private void OnReset()

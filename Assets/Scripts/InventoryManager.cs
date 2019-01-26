@@ -6,7 +6,18 @@ public class InventoryManager : MonoBehaviour, IGameManager
 {
     public ManagerStatus status { get; set; }
     private Dictionary<string, int> _items;
-    private bool debug = true;
+
+    private void Awake()
+    {
+        Messenger.AddListener(GameEvent.LEVEL_FAILED, ClearInventory);
+        Messenger.AddListener(GameEvent.GAME_RESET, ResetInventory);
+    }
+
+    private void OnDestroy()
+    {
+        Messenger.RemoveListener(GameEvent.LEVEL_FAILED, ClearInventory);
+        Messenger.RemoveListener(GameEvent.GAME_RESET, ResetInventory);
+    }
 
     public void Startup()
     {
@@ -21,8 +32,11 @@ public class InventoryManager : MonoBehaviour, IGameManager
         else
             _items[name]=1;
 
-        if (debug)
-            DisplayItems();
+        if(_items[name] == 4)
+        {
+            ClearInventory();
+            Managers.Mission.ReachObjective();
+        }
     }
 
     private void DisplayItems()
@@ -35,4 +49,13 @@ public class InventoryManager : MonoBehaviour, IGameManager
         Debug.Log(itemDisplay);
     }
 
+    private void ClearInventory()
+    {
+        _items.Clear();
+    }
+
+    private void ResetInventory()
+    {
+        _items = new Dictionary<string, int>();
+    }
 }

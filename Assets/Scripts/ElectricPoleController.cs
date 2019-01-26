@@ -12,7 +12,7 @@ public class ElectricPoleController : MonoBehaviour
     [SerializeField]
     private GameObject _endMarker;
     private bool _shouldGenerate = true;
-    private float sparkGenSpeed = 2.5f;
+    private float sparkGenSpeed = 3f;
     private float secondaryWaitSpeed;
     [SerializeField]
     private bool isBigPole;
@@ -42,7 +42,7 @@ public class ElectricPoleController : MonoBehaviour
         _sparkList.Add(_newSpark);
 
         float rand = Random.Range(0, 2);
-        if (rand == 1 && !secondCall)
+        if (rand == 1 && isBigPole && !secondCall)
         {
             yield return new WaitForSeconds(secondaryWaitSpeed);
             StartCoroutine(Generate(true));

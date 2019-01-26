@@ -40,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
     private int _walkFrameSwitchThreshold = 11;
     public float pubDeltaX;
     public bool pubIsGrounded;
+    private GameObject _killAtAltitude;
 
     //public variables
     public float speed = 150.0f;
@@ -98,6 +99,8 @@ public class PlayerMovement : MonoBehaviour
         _defGravityScale = _body.gravityScale;
 
         walkClips = new AudioClip[] {walk_1, walk_2, walk_3, walk_4, walk_5, walk_6, walk_7 };
+
+        _killAtAltitude = GameObject.Find("KillAtAltitude");
     }
 
     // Update is called once per frame
@@ -378,6 +381,15 @@ public class PlayerMovement : MonoBehaviour
         }
 
         pubIsGrounded = _isGrounded;
+
+        //Kill At Altitude
+        if(_killAtAltitude != null)
+        {
+            if (_box.bounds.min.y <= _killAtAltitude.transform.position.y)
+            {
+                Managers.Mission.LevelFailed();
+            }
+        }        
 
         #endregion
     }

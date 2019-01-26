@@ -20,12 +20,21 @@ public class MissionManager : MonoBehaviour, IGameManager
 
     public void GoToNext()
     {
-        if (curLevel < maxLevel)
-        {
-            curLevel++;
-            string name = "Level" + curLevel;
-            SceneManager.LoadScene(name);
-        }
+        curLevel = 3;
+        SceneManager.LoadScene("Level3");
+        //if (curLevel < maxLevel)
+        //{
+        //    curLevel++;
+        //    string name = "Level" + curLevel;
+        //    SceneManager.LoadScene(name);
+        //}
+        //else
+        //{
+        //    Messenger.Broadcast(GameEvent.LEVEL_INCREASED);
+        //    curLevel = 1;
+        //    string name = "Level" + curLevel;
+        //    SceneManager.LoadScene(name);
+        //}
     }
 
     public void ReachObjective()
@@ -35,21 +44,11 @@ public class MissionManager : MonoBehaviour, IGameManager
         int remainingTime = uiController.GetComponent<UIController>().timerCountdown;
         Managers.Player.AddTimerTime(remainingTime);
 
-        //disable all enemies and enemy generators in the scene
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach(GameObject enemy in enemies)
-        {
-            enemy.SetActive(false);
-        }
+        DisableEnemiesInScene();
+        FreezeJumpman();
+        DisableAudio();
 
-        //disable main camera's audio source
-        GameObject camera = GameObject.Find("Main Camera");
-        camera.GetComponent<AudioSource>().enabled = false;
         Messenger.Broadcast(GameEvent.LEVEL_COMPLETE);
-
-        //disable jumpman
-        GameObject jumpman = GameObject.FindGameObjectWithTag("Player");
-        jumpman.GetComponent<PlayerMovement>().enabled = false;
 
         StartCoroutine(PauseAndAdvance());
     }
@@ -60,10 +59,11 @@ public class MissionManager : MonoBehaviour, IGameManager
         GoToNext();
     }
 
-    public void LevelFailed()
+    private IEnumerator AfterDeathRestartLevelIfPossible()
     {
-        Managers.Player.numLives--;
-        if(Managers.Player.numLives > 0)
+        yield return new WaitForSeconds(5);
+
+        if (Managers.Player.numLives > 0)
         {
             Messenger.Broadcast(GameEvent.LIVE_LOST);
             RestartScene();
@@ -76,10 +76,47 @@ public class MissionManager : MonoBehaviour, IGameManager
         }
     }
 
+    public void LevelFailed()
+    {
+        Managers.Player.numLives--;
+
+        //death animation
+        DisableEnemiesInScene();
+        FreezeJumpman();
+        DisableAudio();
+        Messenger.Broadcast(GameEvent.LEVEL_FAILED);
+
+        StartCoroutine(AfterDeathRestartLevelIfPossible());        
+    }
+
     private void RestartScene()
     {
         string name = "Level" + curLevel;
         SceneManager.LoadScene(name);
+    }
+
+    private void DisableEnemiesInScene()
+    {
+        //disable all enemies and enemy generators in the scene
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.SetActive(false);
+        }
+    }
+
+    private void FreezeJumpman()
+    {
+        //disable jumpman
+        GameObject jumpman = GameObject.FindGameObjectWithTag("Player");
+        jumpman.GetComponent<PlayerMovement>().enabled = false;
+    }
+
+    private void DisableAudio()
+    {
+        //disable main camera's audio source
+        GameObject camera = GameObject.Find("Main Camera");
+        camera.GetComponent<AudioSource>().enabled = false;
     }
 
 
