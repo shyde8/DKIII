@@ -13,12 +13,17 @@ public class PlatformItemManager : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        items.Add(collision.gameObject);
+        if(collision.gameObject.tag != "Player")
+        {
+            items.Add(collision.gameObject);
+        }
+            
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        items.Remove(collision.gameObject);
+        if(items.Contains(collision.gameObject))
+            items.Remove(collision.gameObject);
     }
 
     public bool ContainsTaxi()
@@ -33,5 +38,10 @@ public class PlatformItemManager : MonoBehaviour
             }
         }
         return contains;
+    }
+
+    public int NumItems()
+    {
+        return items.Count;
     }
 }

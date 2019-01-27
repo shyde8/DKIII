@@ -32,7 +32,7 @@ public class EnemyJumpDetector : MonoBehaviour
         RaycastHit2D enemyHit = Physics2D.Raycast(startPos, Vector2.down, tempDistance, 1 << LayerMask.NameToLayer("Enemy"));
         if(enemyHit.collider != null)
         {
-            if (enemyHit.collider.gameObject.GetComponent<ReactiveEnemy>() != null)
+            if (enemyHit.collider.gameObject.GetComponent<ReactiveEnemy>() != null || enemyHit.collider.gameObject.name.Contains("Spring"))
             {
                 if(framesBetweenScores >= framesBetweenScoresThreshold)
                 {

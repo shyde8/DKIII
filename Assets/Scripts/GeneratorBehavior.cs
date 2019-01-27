@@ -28,7 +28,7 @@ public class GeneratorBehavior : MonoBehaviour
     {
         if (!_isGenerating)
         {
-            //if (_generatorAndPlatformController.GetComponent<GeneratorAndPlatformController>().withinTwoSecondsOfFlip == false)
+            if (_generatorAndPlatformController.GetComponent<GeneratorAndPlatformController>().withinTwoSecondsOfFlip == false)
                 StartCoroutine(Generate());
         }
     }
