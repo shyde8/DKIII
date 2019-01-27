@@ -14,6 +14,8 @@ public class GeneratorAndPlatformController : MonoBehaviour
     private GameObject _middlePlatform;
     [SerializeField]
     private GameObject _bottomPlatform;
+    [SerializeField]
+    private GameObject _highestPlatform;
     private GameObject[] platforms;
     private GameObject[] generators;
 
@@ -27,7 +29,7 @@ public class GeneratorAndPlatformController : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        platforms = new GameObject[] { _topPlatform, _middlePlatform, _bottomPlatform };
+        platforms = new GameObject[] { _topPlatform, _middlePlatform, _bottomPlatform, _highestPlatform };
         generators = new GameObject[] { _firstGenerator, _secondGenerator };
 	}
 	
