@@ -28,7 +28,7 @@ public class GeneratorBehavior : MonoBehaviour
     {
         if (!_isGenerating)
         {
-            if (_generatorAndPlatformController.GetComponent<GeneratorAndPlatformController>().withinTwoSecondsOfFlip == false)
+            //if (_generatorAndPlatformController.GetComponent<GeneratorAndPlatformController>().withinTwoSecondsOfFlip == false)
                 StartCoroutine(Generate());
         }
     }
@@ -38,7 +38,13 @@ public class GeneratorBehavior : MonoBehaviour
         _isGenerating = true;
         yield return new WaitForSeconds(generationSpeed);
         GameObject obj;
-        if (_referencePlatform.GetComponent<PlatformItemManager>().ContainsTaxi() == false)
+        //if (_referencePlatform.GetComponent<PlatformItemManager>().ContainsTaxi() == false)
+        //    obj = _taxi;
+        //else
+        //    obj = _pie;
+
+        float rand = Random.Range(0, 2);
+        if (rand == 0)
             obj = _taxi;
         else
             obj = _pie;
