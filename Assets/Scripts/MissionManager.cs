@@ -13,28 +13,26 @@ public class MissionManager : MonoBehaviour, IGameManager
     public void Startup()
     {
         curLevel = 0;
-        maxLevel = 3;
+        maxLevel = 6;
 
         status = ManagerStatus.Started;
     }
 
     public void GoToNext()
     {
-        curLevel = 3;
-        SceneManager.LoadScene("Level3");
-        //if (curLevel < maxLevel)
-        //{
-        //    curLevel++;
-        //    string name = "Level" + curLevel;
-        //    SceneManager.LoadScene(name);
-        //}
-        //else
-        //{
-        //    Messenger.Broadcast(GameEvent.LEVEL_INCREASED);
-        //    curLevel = 1;
-        //    string name = "Level" + curLevel;
-        //    SceneManager.LoadScene(name);
-        //}
+        if (curLevel < maxLevel)
+        {
+            curLevel++;
+            string name = "Level" + curLevel;
+            SceneManager.LoadScene(name);
+        }
+        else
+        {
+            Messenger.Broadcast(GameEvent.LEVEL_INCREASED);
+            curLevel = 1;
+            string name = "Level" + curLevel;
+            SceneManager.LoadScene(name);
+        }
     }
 
     public void ReachObjective()
@@ -66,7 +64,9 @@ public class MissionManager : MonoBehaviour, IGameManager
         if (Managers.Player.numLives > 0)
         {
             Messenger.Broadcast(GameEvent.LIVE_LOST);
-            RestartScene();
+            curLevel--;
+            string name = "Level" + curLevel;
+            SceneManager.LoadScene(name);
         }
         else
         {

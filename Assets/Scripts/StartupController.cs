@@ -25,7 +25,7 @@ public class StartupController : MonoBehaviour
 
     private void Awake()
     {
-        Messenger.AddListener(StartupEvent.MANAGERS_STARTED, OnManagersStarted);
+        //Messenger.AddListener(StartupEvent.MANAGERS_STARTED, OnManagersStarted);
         Messenger.AddListener(GameEvent.COIN_INSERTED, OnCoinInsert);
         Messenger.AddListener(GameEvent.GAME_RESET, OnReset);
         _audio = GetComponent<AudioSource>();
@@ -33,7 +33,7 @@ public class StartupController : MonoBehaviour
 
     private void OnDestroy()
     {
-        Messenger.AddListener(StartupEvent.MANAGERS_STARTED, OnManagersStarted);
+       // Messenger.AddListener(StartupEvent.MANAGERS_STARTED, OnManagersStarted);
         Messenger.AddListener(GameEvent.COIN_INSERTED, OnCoinInsert);
         Messenger.RemoveListener(GameEvent.GAME_RESET, OnReset);
     }
@@ -44,6 +44,7 @@ public class StartupController : MonoBehaviour
         _audio.PlayOneShot(_startupClip);
         _coinsLabel.text = Managers.Player.numCredits.ToString("D2");
         _highScoreLabel.text = Managers.Player.highScore.ToString("D6");
+        StartCoroutine(StartGame());
     }
 
     private void OnManagersStarted()
