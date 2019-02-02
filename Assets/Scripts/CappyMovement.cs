@@ -97,7 +97,10 @@ public class CappyMovement : MonoBehaviour
 
             //jumpman and cappy are approximately touching when the distance between their x-coordinates is 0.55, set cappy to isTrigger=true at this point
             if (Mathf.Abs(_endPos.x - _startPos.x) < 0.55f)
+            {
                 gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+                Messenger.Broadcast(GameEvent.CAPPY_DESTROYED);
+            }                
 
             yield return new WaitForFixedUpdate();
         }    

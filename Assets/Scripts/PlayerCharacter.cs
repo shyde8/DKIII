@@ -10,6 +10,18 @@ public class PlayerCharacter : MonoBehaviour
     private GameObject _cappy;
     private float _width;
     private float _height;
+    public bool isCoolingDown = false;
+
+    private void Awake()
+    {
+        Messenger.AddListener(GameEvent.CAPPY_DESTROYED, StartCoolDown);
+    }
+
+    private void OnDestroy()
+    {
+        Messenger.RemoveListener(GameEvent.CAPPY_DESTROYED, StartCoolDown);
+    }
+
 
     private void Start()
     {
@@ -22,7 +34,8 @@ public class PlayerCharacter : MonoBehaviour
         //instantiate cappy if fire2 button is pressed
         if (Input.GetAxis("Fire2") > 0f)
         {
-            if (_cappy == null)
+            Debug.Log(isCoolingDown);
+            if (_cappy == null && !isCoolingDown)
             {
                 gameObject.GetComponent<PlayerMovement>().CappyThrowBurst();
                 _cappy = Instantiate(cappyPrefab) as GameObject;
@@ -36,8 +49,26 @@ public class PlayerCharacter : MonoBehaviour
                 _cappy.transform.position = newPos;
                 //set scale of cappy to negative, if he was generated to the left of jumpman
                 Vector3 tempScale = _cappy.transform.localScale;
-                _cappy.transform.localScale = new Vector3(tempScale.x * dir, tempScale.y);             
+                _cappy.transform.localScale = new Vector3(tempScale.x * dir, tempScale.y); 
+                            
             }
         }               
+    }
+
+    public IEnumerator Cooldown()
+    {
+        isCoolingDown = true;
+        int numFrames = 0;        
+        while(numFrames < 10)
+        {
+            numFrames++;
+            yield return new WaitForFixedUpdate();
+        }
+        isCoolingDown = false;
+    }
+
+    private void StartCoolDown()
+    {
+        StartCoroutine(Cooldown());
     }
 }

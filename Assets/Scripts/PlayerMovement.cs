@@ -389,7 +389,12 @@ public class PlayerMovement : MonoBehaviour
             {
                 Managers.Mission.LevelFailed();
             }
-        }        
+        }
+
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
 
         #endregion
     }
